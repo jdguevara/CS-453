@@ -1,6 +1,16 @@
 #include "mystring.h"
 
+/*
+	Implementation of mystrncpy(), where the functions 
+	should copy the number of bytes, n, from src into dest
 
+	params: char * dest - Our destination pointer
+	        char * src - The source string
+			size_t n - The number of bytes that should be copied
+					   from src to dest
+	
+	return: properly allocated dest with the correct number of bytes
+*/
 char *mystrncpy(char *dest, const char *src, size_t n)
 {
 	size_t i;
@@ -8,19 +18,18 @@ char *mystrncpy(char *dest, const char *src, size_t n)
 	// Allocate enough size in dest to copy src into it
 	dest = malloc(sizeof(char) * n); 
 	
-	// Check to see if src is shorter than the number of bytes
-	if(strlen(src) < n) {
-		strcpy(dest, src);
-		for (i = strlen(src); i < n; i++)
+	// Loop for as many bytes as indicated
+	for (i = 0; i < n; i++)
 		{
-			dest[i] = '\0';
+			// check if we've gone past src length
+			if (i > strlen(src)) {
+				// fill remainder of dest with null character
+				dest[i] = '\0';
+			} else {
+				// copy the correct byte from src to dest
+				dest[i] = src[i];
+			}
 		}
-		
-	} else {
-		for (i = 0; i < n; i++) {
-			dest[i] = src[i];
-		}
-	}
 	
 	return dest;
 }
