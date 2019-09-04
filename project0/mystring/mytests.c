@@ -8,10 +8,11 @@ int main(int argc, char**argv)
 	char* dest1;
 	char* src = "Hello World!";
 
-	printf("The mystrncpy string is: %s\n", mystrncpy(dest1, src, 4));
+	dest1 = mystrncpy(dest1, src, 4);
 
-	// Free memory used
+	printf("The mystrncpy string is: %s\n", dest1);
+
+	// Free memory
 	free(dest1);
-
 	return 0;
 }
