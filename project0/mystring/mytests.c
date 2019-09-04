@@ -8,6 +8,7 @@ int main(int argc, char**argv)
 	char* dest;
 	char* src = "Hello World!";
 
+
 	//dest = mystrncpy(dest, src, 4);
 
 	printf("The mystrncpy string is: %s\n", mystrncpy(dest, src, 4));
