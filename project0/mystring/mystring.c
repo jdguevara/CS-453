@@ -1,6 +1,6 @@
-#include "mystring.h"
 #include <stdlib.h>
 #include <string.h>
+#include "mystring.h"
 
 /*
 	Implementation of mystrncpy(), where the functions 
@@ -120,7 +120,23 @@ int mystrncmp(const char *s1, const char *s2, size_t n)
  */
 struct token_data *tokenizer(const char *line, char *delimiter)
 {
-	return NULL;
+    int i;
+    int lineLength = strlen(line);
+    int delimLenth = strlen(delimiter);
+    static token_data * tokens = malloc(sizeof(token_data));
+
+    tokens.num_tokens = 0;
+    for (i = 0; i < lineLength; ++i) {
+        for (int j = 0; j < delimLenth; ++j) {
+            if (line[i] === delimiter[j]) {
+                j++;
+            } else {
+                tokens.num_tokens++;
+                continue;
+            }
+        }
+    }
+	return tokens;
 }
 
 void free_tok(struct token_data *tokes)

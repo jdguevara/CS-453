@@ -103,5 +103,17 @@ int main(int argc, char**argv)
     printf("\tString 1: '%s'\n", str1);
     printf("\tString 2: '%s'\n", str2);
     printf("\tResult: %d\n", mystrncmp(str1, str2, 5));
+
+    /* Test out the tokenizer */
+    printf("** Strings will be tokenized now! **\n\n");
+    // Test Case #1: "Same" string but with one character caps locked
+    char* line = "Hello, How are you?";
+    char* delimiter = ",";
+
+    printf("\tLine: '%s'\n", line);
+    printf("\tDelimiter: '%s'\n", delimiter);
+    printf("\tResult: %d\n\n", mystrncmp(str1, str2, 5));
+
+
     return 0;
 }
