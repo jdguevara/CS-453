@@ -2,6 +2,7 @@
 #include <string.h>
 #include "mystring.h"
 
+//TODO: Change to pointer notation
 /*
 	Implementation of mystrncpy(), where the functions 
 	should copy the number of bytes, n, from src into dest
@@ -15,10 +16,12 @@
 */
 char *mystrncpy(char *dest, const char *src, size_t n)
 {
-	size_t i;
+    // Return if either dest or src are NULL
+    if(!dest || !src) {
+        return NULL;
+    }
 
-	// Allocate enough size in dest to copy src into it
-	dest = malloc(sizeof(char) * n); 
+	size_t i;
 	
 	// Loop for as many bytes as indicated
 	for (i = 0; i < n; i++)
@@ -54,25 +57,22 @@ char *mystrncpy(char *dest, const char *src, size_t n)
  */
 char *mystrncat(char *dest, const char *src, size_t n)
 {
-    char* newDest; // Need somewhere to hold dest byte-for-byte
+    // Return if either dest or src are NULL
+    if(!dest || !src) {
+        return NULL;
+    }
+
     size_t dest_len = strlen(dest);
     size_t i;
 
-    newDest = malloc(dest_len + (sizeof(char)*n) + 1);
-
-    // Copy over the stuff in dest (without this, the string in dest is overridden)
-    for (i = 0; i < dest_len; i++) {
-        newDest[i] = dest[i];
-    }
-
     // Add n-bytes from source until the null character is found
     for (i = 0 ; i < n && src[i] != '\0' ; i++)
-        newDest[dest_len + i] = src[i];
+        dest[dest_len + i] = src[i];
 
     // Cap the string with null character
-    newDest[dest_len + i] = '\0';
+    dest[dest_len + i] = '\0';
 
-    return newDest;
+    return dest;
 }
 
 /*
@@ -108,7 +108,7 @@ int mystrncmp(const char *s1, const char *s2, size_t n)
 }
 
 /*
- * Implementation of the tokenizer( ) function from mystring.h
+ * Implementation of the tokenizer() function from mystring.h
  * Parse a given string into tokens using provide delimiters. This function
  * returns a token_data struct that contains the array of tokens and the count
  * of tokens found.
@@ -116,27 +116,14 @@ int mystrncmp(const char *s1, const char *s2, size_t n)
  * Params: const char * line - line/string to tokenize
  *         char * delimiter - series of characters that determines how string is split
  *
- * Return:
+ * Return: token_data struct containing the array of tokens found using the delimiter
+ *		   and a count for how many tokens were found
  */
 struct token_data *tokenizer(const char *line, char *delimiter)
 {
-    int i;
-    int lineLength = strlen(line);
-    int delimLenth = strlen(delimiter);
-    static token_data * tokens = malloc(sizeof(token_data));
+	struct token_data *tokenizerP;
 
-    tokens.num_tokens = 0;
-    for (i = 0; i < lineLength; ++i) {
-        for (int j = 0; j < delimLenth; ++j) {
-            if (line[i] === delimiter[j]) {
-                j++;
-            } else {
-                tokens.num_tokens++;
-                continue;
-            }
-        }
-    }
-	return tokens;
+	return tokenizerP;
 }
 
 void free_tok(struct token_data *tokes)

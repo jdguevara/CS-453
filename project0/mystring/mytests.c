@@ -1,5 +1,6 @@
 #include "mystring.h"
 #include <stdlib.h>
+#include <string.h>
 
 /*
  * Tests written for my implementations of the string modifier functions
@@ -11,40 +12,60 @@ int main(int argc, char**argv)
 	/* Test out the mystrncpy function */
 	char* dest1; 
 	char* src1 = "Hello World!";
+	size_t n = 4;
 
-	printf("** Begin - Copy strings **\n\n");
+    printf("** Begin - Copy strings **\n\n");
 	printf("String to copy using mystrncpy(): '%s'\n\n", src1);
+
 	// Test Case #1: n-bytes is less than src length
-	dest1 = mystrncpy(dest1, src1, 4);
+    dest1 = malloc(sizeof(char) * n);
+	dest1 = mystrncpy(dest1, src1, n);
 
 	printf("Case 1: Bytes copied are less than string length\n");
-	printf("\tBytes copied: 4\n");
+	printf("\tBytes copied: %ld\n", n);
 	printf("\tResulting copy: '%s'\n\n", dest1);
 
 	// Free memory after use
 	free(dest1);
 
 	// Test Case #2: n-bytes is longer than src length
-	dest1 = mystrncpy(dest1, src1, 16);
+    n = 16;
+    dest1 = malloc(sizeof(char) * n);
+	dest1 = mystrncpy(dest1, src1, n);
 	
 	printf("Case 2: Bytes copied are more than string length\n");
-	printf("\tBytes copied: 16\n");
-	printf("\tResulting copy: '%s'", dest1);
+	printf("\tBytes copied: %ld\n", n);
+	printf("\tResulting copy: '%s'\n\n", dest1);
+
+    // Free memory
+    free(dest1);
+
+    // Test Case #3: one string is null
+    n = 16;
+    dest1 = malloc(sizeof(char) * n);
+    dest1 = mystrncpy(dest1, NULL, n);
+
+    printf("Case 3: One string is null\n");
+    printf("\tBytes copied: %ld\n", n);
+    printf("\tResulting copy: '%s'", dest1);
 
     // Free memory
     free(dest1);
 
 	/* Test out mystrncat function */
-	char* dest2 = "Hello There! ";
+	char* dest = "Hello There! ";
+	char* dest2;
 	char* src2  = "General Kenobi";
 	size_t n2 = 7;
 
 	printf("\n\n** Strings will be concatenated now! ** \n");
-	printf("\nDest string for mystrncat(): '%s'\n", dest2);
+	printf("\nDest string for mystrncat(): '%s'\n", dest);
 	printf("Src string for mystrncat(): '%s'\n\n", src2);
 
 	// Test Case #1: n-bytes is less than src length
-	dest2 = mystrncat(dest2, src2, n2);
+	// Allocate enough memory for destination string + n-bytes + 1
+	dest2 = malloc(strlen(dest) + (sizeof(char) * n2) + 1);
+	dest2 = mystrncat(dest, src2, n2);
 
 	printf("Case 1: Bytes copied are less than src string length\n");
 	printf("\tBytes copied: %ld\n", n2);
