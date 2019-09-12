@@ -2,7 +2,6 @@
 #include <string.h>
 #include "mystring.h"
 
-//TODO: Change to pointer notation
 /*
 	Implementation of mystrncpy(), where the functions 
 	should copy the number of bytes, n, from src into dest
