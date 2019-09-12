@@ -127,8 +127,7 @@ struct token_data *tokenizer(const char *line, char *delimiter)
         return NULL;
     }
 
-    char* editLine;
-    strcpy(editLine, line);
+    char* editLine = strdup(line);
     struct token_data tokens;
 	struct token_data *tokenizerP = malloc(sizeof(struct token_data));
 

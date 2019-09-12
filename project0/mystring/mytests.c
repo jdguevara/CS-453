@@ -182,6 +182,7 @@ int main(int argc, char**argv)
 
     printf("\tLine: '%s'\n", line);
     printf("\tDelimiter: '%s'\n", delimiter);
+    printf("\tFirst token: %d\n", tokens->num_tokens);
 
 
     return 0;
