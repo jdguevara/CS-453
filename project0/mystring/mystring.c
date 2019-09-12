@@ -141,7 +141,7 @@ struct token_data *tokenizer(const char *line, char *delimiter)
     while(tokenizerP->tokens)
 
     // Get the first token from our line
-    tokenizerP->tokens = strtok(editLine, delimiter);
+    tokenizerP->tokens[0] = strtok(editLine, delimiter);
     tokenizerP->num_tokens++;
 
 	return tokenizerP;
