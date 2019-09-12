@@ -97,6 +97,9 @@ int main(int argc, char**argv)
 
     printf("\n\tResulting concat: '%s'\n\n", dest);
 
+    // Free memory
+    free(dest);
+
     // Case 3: destination isn't empty and concatenating more bytes than the length of source
     n = 10;
     dest = (char*) malloc(dest_size + (sizeof(char) * n) + 1);
@@ -112,6 +115,9 @@ int main(int argc, char**argv)
 
     printf("\n\tResulting concat: '%s'\n\n", dest);
 
+    // Free memory
+    free(dest);
+
     // Case 4: destination is empty
     n = 3; // Change this up just to make things different
     dest = (char*) malloc((sizeof(char) * n) + 1);
@@ -125,6 +131,9 @@ int main(int argc, char**argv)
     dest = strncat(dest, src, n);
 
     printf("\n\tResulting concat: '%s'\n\n", dest);
+
+    // Free memory
+    free(dest);
 
     /* Testing out mystrncmp() */
     printf("** Strings will be compared now! **\n"
