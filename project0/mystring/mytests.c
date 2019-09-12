@@ -47,12 +47,40 @@ int main(int argc, char**argv)
 
     printf("Case 3: One string is null\n");
     printf("\tBytes copied: %ld\n", n);
-    printf("\tResulting copy: '%s'", dest1);
+    printf("\tResulting copy: '%s'\n\n", dest1);
 
     // Free memory
     free(dest1);
 
-	/* Test out mystrncat function */
+    /* Test out string concatenation */
+    printf("** Concatenation Tests **\n\n");
+
+    // Case 1: destination string is not empty
+    char* original_dest = "Hello "; // Not too sure about this, but it'll serve with gauging malloc
+    char* dest;
+    const char* src = "World!";
+    n = 6;
+    int dest_size = strlen(original_dest);
+
+    // Allocate enough memory to hold dest, n-bytes from src, and null
+    dest = (char*) malloc(dest_size + (sizeof(char) * n) + 1);
+
+    // Using the copy function to pass a char* to dest, assigning a string breaks the malloc
+    mystrncpy(dest, original_dest, n);
+
+    printf("Case 1: destination string is not empty\n");
+    printf("\tDestination string: '%s'\n", dest);
+    printf("\tConcat source string: '%s'\n", src);
+    printf("\tBytes to concatenate: %ld\n", n);
+
+    // Get our concatenated string
+    dest = strncat(dest, src, n);
+
+    printf("\n\tResulting concat: '%s'\n\n", dest);
+    printf("%d\n", strlen(original_dest));
+
+
+	/* Test out mystrncat function
 	char* dest = "Hello There! ";
 	char* dest2;
 	char* src2  = "General Kenobi";
@@ -65,10 +93,11 @@ int main(int argc, char**argv)
 	// Test Case #1: n-bytes is less than src length
 	// Allocate enough memory for destination string + n-bytes + 1
 	dest2 = malloc(strlen(dest) + (sizeof(char) * n2) + 1);
-	dest2 = mystrncat(dest, src2, n2);
+	dest2 = dest;
+	dest2 = mystrncat(dest2, src2, n2);
 
-	printf("Case 1: Bytes copied are less than src string length\n");
-	printf("\tBytes copied: %ld\n", n2);
+	printf("Case 1: Bytes concatenated are less than src string length\n");
+	printf("\tBytes concatenated from src to dest: %ld\n", n2);
 	printf("\tResulting concatenation: '%s'\n\n", dest2);
 
 	// Free memory
@@ -88,7 +117,7 @@ int main(int argc, char**argv)
 
     // Test Case #3: empty dest
 
-    /* Testing out mystrncmp() */
+    /* Testing out mystrncmp()
     printf("** Strings will be compared now! **\n"
            "Number of bytes used throughout: 5\n\n");
     // Test Case #1: "Same" string but with one character caps locked
@@ -125,7 +154,7 @@ int main(int argc, char**argv)
     printf("\tString 2: '%s'\n", str2);
     printf("\tResult: %d\n", mystrncmp(str1, str2, 5));
 
-    /* Test out the tokenizer */
+    /* Test out the tokenizer
     printf("** Strings will be tokenized now! **\n\n");
     // Test Case #1: "Same" string but with one character caps locked
     char* line = "Hello, How are you?";
@@ -134,7 +163,7 @@ int main(int argc, char**argv)
     printf("\tLine: '%s'\n", line);
     printf("\tDelimiter: '%s'\n", delimiter);
     printf("\tResult: %d\n\n", mystrncmp(str1, str2, 5));
-
+*/
 
     return 0;
 }

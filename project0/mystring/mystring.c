@@ -21,6 +21,7 @@ char *mystrncpy(char *dest, const char *src, size_t n)
         return NULL;
     }
 
+    char * ptr = dest;
 	size_t i;
 	
 	// Loop for as many bytes as indicated
@@ -29,10 +30,10 @@ char *mystrncpy(char *dest, const char *src, size_t n)
 			// check if we've gone past src length
 			if (i > strlen(src)) {
 				// fill remainder of dest with null character
-				dest[i] = '\0';
+				*ptr++ = '\0';
 			} else {
 				// copy the correct byte from src to dest
-				dest[i] = src[i];
+				*ptr++ = *src++;
 			}
 		}
 
@@ -52,8 +53,7 @@ char *mystrncpy(char *dest, const char *src, size_t n)
 			size_t n - The determined number of bytes to concat
 						to dest from src
 	
-	return: properly allocated string with the correct number of
-		    bytes concatenated from src.
+	return: properly string containing concatenated n-bytes
  */
 char *mystrncat(char *dest, const char *src, size_t n)
 {
