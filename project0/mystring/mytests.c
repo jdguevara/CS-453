@@ -65,7 +65,8 @@ int main(int argc, char**argv)
     // Allocate enough memory to hold dest, n-bytes from src, and null
     dest = (char*) malloc(dest_size + (sizeof(char) * n) + 1);
 
-    // Using the copy function to pass a char* to dest, assigning a string breaks the malloc
+    // Using the copy function to pass a char* to dest, assigning a string breaks the malloc and further testing
+    // of the implementation of mystrncpy()
     mystrncpy(dest, original_dest, n);
 
     printf("Case 1: destination string is not empty\n");
@@ -77,47 +78,55 @@ int main(int argc, char**argv)
     dest = strncat(dest, src, n);
 
     printf("\n\tResulting concat: '%s'\n\n", dest);
-    printf("%d\n", strlen(original_dest));
-
-
-	/* Test out mystrncat function
-	char* dest = "Hello There! ";
-	char* dest2;
-	char* src2  = "General Kenobi";
-	size_t n2 = 7;
-
-	printf("\n\n** Strings will be concatenated now! ** \n");
-	printf("\nDest string for mystrncat(): '%s'\n", dest);
-	printf("Src string for mystrncat(): '%s'\n\n", src2);
-
-	// Test Case #1: n-bytes is less than src length
-	// Allocate enough memory for destination string + n-bytes + 1
-	dest2 = malloc(strlen(dest) + (sizeof(char) * n2) + 1);
-	dest2 = dest;
-	dest2 = mystrncat(dest2, src2, n2);
-
-	printf("Case 1: Bytes concatenated are less than src string length\n");
-	printf("\tBytes concatenated from src to dest: %ld\n", n2);
-	printf("\tResulting concatenation: '%s'\n\n", dest2);
-
-	// Free memory
-	free(dest2);
-
-    // Test Case #2: n-bytes greater than both strings
-    n2 = 20;
-    dest2 = "Hello There! ";
-    dest2 = mystrncat(dest2, src2, n2);
-
-    printf("Case 2: Bytes copied are greater than both string lengths\n");
-    printf("\tBytes copied: %ld\n", n2);
-    printf("\tResulting concatenation: '%s'\n\n", dest2);
 
     // Free memory
-    free(dest2);
+    free(dest);
 
-    // Test Case #3: empty dest
+    // Case 2: destination isn't empty and concatenating less bytes than the length of source
+    n = 4;
+    dest = (char*) malloc(dest_size + (sizeof(char) * n) + 1);
+    strcpy(dest, original_dest);
 
-    /* Testing out mystrncmp()
+    printf("Case 2: destination isn't empty and concatenating less bytes than the length of source\n");
+    printf("\tDestination string: '%s'\n", dest);
+    printf("\tConcat source string: '%s'\n", src);
+    printf("\tBytes to concatenate: %ld\n", n);
+
+    // Get our concatenated string
+    dest = strncat(dest, src, n);
+
+    printf("\n\tResulting concat: '%s'\n\n", dest);
+
+    // Case 3: destination isn't empty and concatenating more bytes than the length of source
+    n = 10;
+    dest = (char*) malloc(dest_size + (sizeof(char) * n) + 1);
+    strcpy(dest, original_dest);
+
+    printf("Case 3: destination isn't empty and concatenating more bytes than the length of source\n");
+    printf("\tDestination string: '%s'\n", dest);
+    printf("\tConcat source string: '%s'\n", src);
+    printf("\tBytes to concatenate: %ld\n", n);
+
+    // Get our concatenated string
+    dest = strncat(dest, src, n);
+
+    printf("\n\tResulting concat: '%s'\n\n", dest);
+
+    // Case 4: destination is empty
+    n = 3; // Change this up just to make things different
+    dest = (char*) malloc((sizeof(char) * n) + 1);
+
+    printf("Case 3: destination isn't empty and concatenating more bytes than the length of source\n");
+    printf("\tDestination string: '%s'\n", dest);
+    printf("\tConcat source string: '%s'\n", src);
+    printf("\tBytes to concatenate: %ld\n", n);
+
+    // Get our concatenated string
+    dest = strncat(dest, src, n);
+
+    printf("\n\tResulting concat: '%s'\n\n", dest);
+
+    /* Testing out mystrncmp() */
     printf("** Strings will be compared now! **\n"
            "Number of bytes used throughout: 5\n\n");
     // Test Case #1: "Same" string but with one character caps locked
@@ -129,7 +138,7 @@ int main(int argc, char**argv)
     printf("\tString 2: '%s'\n", str2);
     printf("\tResult: %d\n\n", mystrncmp(str1, str2, 5));
 
-    // Test Case #2: Same string
+    /* Test Case #2: Same string */
     str1 = "Hello";
 
     printf("Case #2: Same word\n");

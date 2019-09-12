@@ -22,19 +22,19 @@ char *mystrncpy(char *dest, const char *src, size_t n)
     }
 
     char * ptr = dest;
-	size_t i;
+    size_t src_len = strlen(src);
+	int i;
 	
 	// Loop for as many bytes as indicated
 	for (i = 0; i < n; i++)
 		{
-			// check if we've gone past src length
-			if (i > strlen(src)) {
-				// fill remainder of dest with null character
-				*ptr++ = '\0';
-			} else {
-				// copy the correct byte from src to dest
-				*ptr++ = *src++;
-			}
+	        // If we go past the original src length continue adding null characters
+            if(i > src_len) {
+                *ptr++ = '\0';
+            // Otherwise, just copy the next byte from src
+            } else {
+                *ptr++ = *src++;
+            }
 		}
 
 	return dest;
@@ -62,15 +62,18 @@ char *mystrncat(char *dest, const char *src, size_t n)
         return NULL;
     }
 
+    size_t src_len = strlen(src);
     size_t dest_len = strlen(dest);
-    size_t i;
+    char * ptr = dest + dest_len;
+    int i;
 
     // Add n-bytes from source until the null character is found
-    for (i = 0 ; i < n && src[i] != '\0' ; i++)
-        dest[dest_len + i] = src[i];
+    for (i = 0 ; i < n && *src != '\0'; i++) {
+        *ptr++ = *src++;
+    }
 
     // Cap the string with null character
-    dest[dest_len + i] = '\0';
+    *ptr = '\0';
 
     return dest;
 }
@@ -95,7 +98,7 @@ int mystrncmp(const char *s1, const char *s2, size_t n)
 
     val = 0;
     for (i = 0; i < n || s1[i] != '\0' || s2[i] != '\0'; ++i) {
-        val += s1[i] - s2[i];
+        val += *s1++ - *s2++;
     }
 
     if (val == 0) {
