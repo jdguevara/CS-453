@@ -22,7 +22,7 @@ char *mystrncpy(char *dest, const char *src, size_t n)
 
     char * ptr = dest;
     size_t src_len = strlen(src);
-	int i;
+	size_t i;
 	
 	// Loop for as many bytes as indicated
 	for (i = 0; i < n; i++)
@@ -61,7 +61,6 @@ char *mystrncat(char *dest, const char *src, size_t n)
         return NULL;
     }
 
-    size_t src_len = strlen(src);
     size_t dest_len = strlen(dest);
     char * ptr = dest + dest_len;
     int i;
@@ -123,7 +122,22 @@ int mystrncmp(const char *s1, const char *s2, size_t n)
  */
 struct token_data *tokenizer(const char *line, char *delimiter)
 {
-	struct token_data *tokenizerP;
+    // Return if either the line or delimiter are NULL
+    if(!line || !delimiter) {
+        return NULL;
+    }
+
+    char* editLine;
+    strcpy(editLine, line);
+    struct token_data tokens;
+	struct token_data *tokenizerP = malloc(sizeof(struct token_data));
+
+	// Point to wherever our tokenizer struct is located
+    tokenizerP = &tokens;
+
+    // Get the first token from our line
+    tokenizerP->tokens[0] = strtok(editLine, delimiter);
+    tokenizerP->num_tokens++;
 
 	return tokenizerP;
 }
