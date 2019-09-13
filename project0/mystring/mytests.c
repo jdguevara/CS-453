@@ -180,12 +180,15 @@ int main(int argc, char**argv)
 
     struct token_data *tokens = tokenizer(line, delimiter);
 
+	int num_tokens = tokens->num_tokens;
     printf("\tLine: '%s'\n", line);
     printf("\tDelimiter: '%s'\n", delimiter);
-    printf("\tFirst token: %s\n", tokens->tokens[0]);
-
-    free(tokens);
-
+	printf("\tTokens found: \n");
+	
+	int i;
+	for(i = 0; i < num_tokens; i++) {
+		printf("\t\t'%s'\n", tokens->tokens[i]);
+	}
 
     return 0;
 }
