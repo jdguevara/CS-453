@@ -174,7 +174,8 @@ int main(int argc, char**argv)
 
     /* Test out the tokenizer*/
     printf("** Strings will be tokenized now! **\n\n");
-    // Test Case #1: "Same" string but with one character caps locked
+
+    // Test Case #1: Simple tokenization over a single delimiter
     char* line = "Hello, How are you?";
     char* delimiter = ",";
 
@@ -189,6 +190,9 @@ int main(int argc, char**argv)
 	for(i = 0; i < num_tokens; i++) {
 		printf("\t\t'%s'\n", tokens->tokens[i]);
 	}
+
+	// Free memory
+	free_tok(tokens);
 
     return 0;
 }

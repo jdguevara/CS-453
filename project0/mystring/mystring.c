@@ -162,4 +162,6 @@ struct token_data *tokenizer(const char *line, char *delimiter)
  */
 void free_tok(struct token_data *tokes)
 {
+    free(tokes->tokens);
+    free(tokes);
 }
