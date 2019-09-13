@@ -184,6 +184,8 @@ int main(int argc, char**argv)
     printf("\tDelimiter: '%s'\n", delimiter);
     printf("\tFirst token: %s\n", tokens->tokens[0]);
 
+    free(tokens);
+
 
     return 0;
 }

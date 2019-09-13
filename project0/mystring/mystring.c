@@ -137,7 +137,9 @@ struct token_data *tokenizer(const char *line, char *delimiter)
     // Allocate enough space for tokens
     tokenizerP->tokens = malloc(sizeof(char*) * MAX_TOKENS);
 
-    //Until the end of the line
+	tokenizerP->num_tokens = 0;
+
+	//Until the end of the line
     //while(tokenizerP->tokens)
 
     // Get the first token from our line
