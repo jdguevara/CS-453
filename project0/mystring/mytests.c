@@ -212,7 +212,7 @@ int main(int argc, char**argv)
     // Free memory
     free_tok(tokens);
 
-    /* Test Case #3: Random string sequence - from Piazza
+    // Test Case #3: Random string sequence - from Piazza
     line = ", A,,,";
 
     tokens = tokenizer(line, delimiter);
@@ -230,7 +230,6 @@ int main(int argc, char**argv)
 
     // Free memory
     free_tok(tokens);
-     */
 
     return 0;
 }

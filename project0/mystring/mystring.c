@@ -127,7 +127,7 @@ struct token_data *tokenizer(const char *line, char *delimiter)
         return NULL;
     }
 
-    char* editLine = strdup(line);
+    char* editLine = malloc(strlen(delimiter));
 	struct token_data *tokenizerP = malloc(sizeof(struct token_data));
 	int i;
 
@@ -137,6 +137,7 @@ struct token_data *tokenizer(const char *line, char *delimiter)
 	tokenizerP->num_tokens = 0;
 
     // Get the first token from our line
+	strcpy(editLine, line);
     tokenizerP->tokens[0] = strtok(editLine, delimiter);
     tokenizerP->num_tokens++;
 	
@@ -150,6 +151,7 @@ struct token_data *tokenizer(const char *line, char *delimiter)
 		}
 	}
 
+	editLine = realloc(editLine, sizeof(char) * strlen(tokenizerP->tokens[0])+1);
 	return tokenizerP;
 }
 
@@ -160,7 +162,7 @@ struct token_data *tokenizer(const char *line, char *delimiter)
  */
 void free_tok(struct token_data *tokes)
 {
-    free(tokes->tokens[0]);
+	free(tokes->tokens[0]);	
 	free(tokes->tokens);
 	free(tokes);
 }
