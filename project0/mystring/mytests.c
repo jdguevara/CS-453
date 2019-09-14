@@ -42,15 +42,11 @@ int main(int argc, char**argv)
 
     // Test Case #3: one string is null
     n = 16;
-    dest1 = malloc(sizeof(char) * n);
     dest1 = mystrncpy(dest1, NULL, n);
 
     printf("Case 3: One string is null\n");
     printf("\tBytes copied: %ld\n", n);
     printf("\tResulting copy: '%s'\n\n", dest1);
-
-    // Free memory
-    free(dest1);
 
     /* Test out string concatenation */
     printf("** Concatenation Tests **\n\n");
