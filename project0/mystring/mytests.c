@@ -118,7 +118,7 @@ int main(int argc, char**argv)
     n = 3; // Change this up just to make things different
     dest = (char*) malloc((sizeof(char) * n) + 1);
 
-    printf("Case 3: destination isn't empty and concatenating more bytes than the length of source\n");
+    printf("Case 4: destination is empty\n");
     printf("\tDestination string: '%s'\n", dest);
     printf("\tConcat source string: '%s'\n", src);
     printf("\tBytes to concatenate: %ld\n", n);
@@ -138,7 +138,7 @@ int main(int argc, char**argv)
 	char* str1 = "hello";
     char* str2 = "Hello";
 
-    printf("Case #1: Same word, one character is caps locked\n");
+    printf("Case 1: Same word, one character is caps locked\n");
     printf("\tString 1: '%s'\n", str1);
     printf("\tString 2: '%s'\n", str2);
     printf("\tResult: %d\n\n", mystrncmp(str1, str2, 5));
@@ -146,7 +146,7 @@ int main(int argc, char**argv)
     /* Test Case #2: Same string */
     str1 = "Hello";
 
-    printf("Case #2: Same word\n");
+    printf("Case 2: Same word\n");
     printf("\tString 1: '%s'\n", str1);
     printf("\tString 2: '%s'\n", str2);
     printf("\tResult: %d\n\n", mystrncmp(str1, str2, 5));
@@ -154,7 +154,7 @@ int main(int argc, char**argv)
     // Test Case #3: Same as first test case in this series, but string order is swapped
     str1 = "hello";
 
-    printf("Case #3: Same as Case #1 in this series, but string order is swapped when passed to function\n");
+    printf("Case 3: Same as Case #1 in this series, but string order is swapped when passed to function\n");
     printf("\tString 1: '%s'\n", str1);
     printf("\tString 2: '%s'\n", str2);
     printf("\tResult: %d\n\n", mystrncmp(str2, str1, 5));
@@ -163,7 +163,7 @@ int main(int argc, char**argv)
     str1 = "He";
     str2 = "Hello to you?";
 
-    printf("Case #4: One string shorter than the other, and number of bytes longer than s1\n");
+    printf("Case 4: One string shorter than the other, and number of bytes longer than s1\n");
     printf("\tString 1: '%s'\n", str1);
     printf("\tString 2: '%s'\n", str2);
     printf("\tResult: %d\n", mystrncmp(str1, str2, 5));
@@ -175,13 +175,15 @@ int main(int argc, char**argv)
     char* line = "Hello, How are you?";
     char* delimiter = ",";
 
-    struct token_data *tokens = tokenizer(line, delimiter);
+    struct token_data * tokens = tokenizer(line, delimiter);
 
 	int num_tokens = tokens->num_tokens;
+
+    printf("Case 1: Simple tokenizer over one character delimiter\n");
     printf("\tLine: '%s'\n", line);
     printf("\tDelimiter: '%s'\n", delimiter);
 	printf("\tTokens found: \n");
-	
+
 	int i;
 	for(i = 0; i < num_tokens; i++) {
 		printf("\t\t'%s'\n", tokens->tokens[i]);
@@ -189,6 +191,46 @@ int main(int argc, char**argv)
 
 	// Free memory
 	free_tok(tokens);
+
+    // Test Case #2: Simple tokenization over a two character delimiter
+    delimiter = ", ";
+
+    tokens = NULL;
+    tokens = tokenizer(line, delimiter);
+
+    num_tokens = tokens->num_tokens;
+
+    printf("Case 2: Simple tokenization over a two character delimiter\n");
+    printf("\tLine: '%s'\n", line);
+    printf("\tDelimiter: '%s'\n", delimiter);
+    printf("\tTokens found: \n");
+
+    for(i = 0; i < num_tokens; i++) {
+        printf("\t\t'%s'\n", tokens->tokens[i]);
+    }
+
+    // Free memory
+    free_tok(tokens);
+
+    /* Test Case #3: Random string sequence - from Piazza
+    line = ", A,,,";
+
+    tokens = tokenizer(line, delimiter);
+
+    num_tokens = tokens->num_tokens;
+
+    printf("Case 3: Random string sequence - from Piazza\n");
+    printf("\tLine: '%s'\n", line);
+    printf("\tDelimiter: '%s'\n", delimiter);
+    printf("\tTokens found: \n");
+
+    for(i = 0; i < num_tokens; i++) {
+        printf("\t\t'%s'\n", tokens->tokens[i]);
+    }
+
+    // Free memory
+    free_tok(tokens);
+     */
 
     return 0;
 }
