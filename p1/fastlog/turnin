@@ -1,0 +1,43 @@
+#!/bin/bash
+
+if [ ! -z "$(git status --porcelain)" ]; then
+  echo "ERROR: Working directory is not clean"
+  echo "You have changes that will not be pushed for grading"
+  exit 1
+fi
+
+program="$1"
+
+if [[ -z $program ]]; then
+  echo "ERROR: Need to specify the project name."
+  echo "This is stated in the project spec."
+  echo "FAILED to submit your program!!!!"
+  echo "-----"
+  echo "usage $0 <project name>"
+  exit 1
+fi
+
+
+#Make sure we are all updated
+git pull --rebase
+git pull --tags
+
+if [ ! -z "$(git status --porcelain)" ]; then
+  echo "ERROR: Working directory is not clean"
+  echo "You have changes that will not be pushed for grading"
+  echo "Please fix your directory and try again"
+  echo "FAILED to submit your program!!!!"
+  exit 1
+fi
+
+#Make sure and push code
+git push origin master
+
+rev=$(git rev-parse --short HEAD)
+tagname="$program-$rev"
+
+#Tag and push for grading
+git tag -a $tagname -m "$program ready for grading"
+git push origin $tagname
+
+echo "Finished! You have submitted your program as $tagname"
