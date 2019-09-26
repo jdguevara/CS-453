@@ -10,13 +10,14 @@ struct entry {
 };
 
 struct entry *bufferPtr;
-int counter = 0;
+int readIndex;
+int writeIndex;
 
 void fastlog_init(void)
 {
-	// Set up a buffer array of entries of MAX_LOG_ENTRY size
-	struct entry buffer[MAX_LOG_ENTRY];
-	bufferPtr = buffer;
+    bufferPtr = malloc(sizeof(struct entry)*MAX_LOG_ENTRY);
+    writeIndex = 0;
+    readIndex = 0;
 }
 
 
@@ -27,16 +28,16 @@ void fastlog_write(LEVEL lvl, char *text)
     time_t ltime;
     ltime = time(NULL);
 
-    buffer[counter]->lvl = lvl;
-    buffer[counter]->message = strcpy(text);
-    buffer[counter]->pid = getpid();
-    buffer[counter]->time = ltime;
-    counter++;
+    bufferPtr[writeIndex]->lvl = lvl;
+    bufferPtr[writeIndex}->message = strcpy(text);
+    bufferPtr[writeIndex}->pid = getpid();
+    bufferPtr[writeIndex}->time = ltime;
+    writeIndex++;
 }
 
 void check_buff_end() {
-    if (counter == 500) {
-        counter = 0;
+    if (writeIndex == MAX_LOG_ENTRY) {
+        writeIndex = 0;
     }
 }
 
