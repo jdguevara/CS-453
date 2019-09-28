@@ -66,6 +66,13 @@ void fastlog_dump(void)
     // This counter is local, independent of our global
     int counter = 0;
 
+    // More local vars
+    long bufferPid;
+    int bufferLevel;
+    char* bufferMessage;
+    struct tm *my_tm;
+    char* bufferTime = malloc(sizeof(char) * MAX_MSG_LENGTH);
+
     while (counter < MAX_LOG_ENTRY) {
         // Check that our current entry isn't empty otherwise, increase counter and skip
         /*if(bufferPtr[counter] == NULL) {
@@ -74,25 +81,23 @@ void fastlog_dump(void)
         }*/
 
         // Pass stored values into easier-to-handle vars
-        long bufferPid = (long) bufferPtr[counter].pid;
-        int bufferLevel = bufferPtr[counter].lvl;
-        char* bufferMessage = bufferPtr[counter].message;
+        bufferPid = (long) bufferPtr[counter].pid;
+        bufferLevel = bufferPtr[counter].lvl;
+        bufferMessage = bufferPtr[counter].message;
 
         // Time will need to be formatted to readable human standards
-        struct tm *my_tm = localtime(&bufferPtr[counter].time.tv_sec);
-        char* bufferTime = malloc(sizeof(char) * MAX_MSG_LENGTH);;
+        my_tm = localtime(&bufferPtr[counter].time.tv_sec);
         strftime(bufferTime, MAX_MSG_LENGTH, "%F %I:%M:%S", my_tm);
 
         // Print out our logs //TODO: Make sure to print out based on timestamp age
 		fprintf(stderr, "[%ld]-[%s.%.9ld]-[%d]-<%s>\n", bufferPid, bufferTime, bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage);
 
         counter++;
-    }
 
-    // Free our buffer once we're done with our dump
- //   free_buff();
-	free(bufferTime);
-	bufferTime = NULL;
+        // Free up our bufferTime string
+        free(bufferTime);
+        bufferTime = NULL;
+    }
 }
 
 /**
