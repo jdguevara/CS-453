@@ -60,7 +60,7 @@ void fastlog_dump(void)
     char* bufferMessage = bufferPtr[counter].message;
 
     while (counter < MAX_LOG_ENTRY) {
-        printf("[%ld]-[%ld.%.9ld]-[%d]-<%s>\n", bufferPid, (long) bufferPtr[counter].time.tv_sec, bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage;
+        printf("[%ld]-[%ld.%.9ld]-[%d]-<%s>\n", bufferPid, (long) bufferPtr[counter].time.tv_sec, bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage);
         counter++;
     }
 }
