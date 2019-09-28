@@ -41,7 +41,13 @@ void fastlog_write(LEVEL lvl, char *text)
 
 	// Check for NULL strings
     if (text != NULL) {
-        strcpy(bufferPtr[counter].message, text); // Message string (remember to copy, not just assign)
+        // Check length of string
+        if(strlen(text) > MAX_MSG_LENGTH) {
+            int strDiff = strlen(text) - MAX_MSG_LENGTH;
+            strncpy(bufferPtr[counter].message, text, strlen(text) - strDiff);
+        } else {
+            strcpy(bufferPtr[counter].message, text); // Message string (remember to copy, not just assign)
+        }
     } else {
 		strcpy(bufferPtr[counter].message, "");
 	}
