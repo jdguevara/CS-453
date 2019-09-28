@@ -12,8 +12,9 @@ struct entry {
     char message[MAX_MSG_LENGTH];
 };
 
-// Personal function prototype for compiler
+// Personal function prototypes for compiler
 void check_buff_end(void);
+void free_buff(void);
 
 // Globals
 struct entry buffer[MAX_LOG_ENTRY];
@@ -67,10 +68,10 @@ void fastlog_dump(void)
 
     while (counter < MAX_LOG_ENTRY) {
         // Check that our current entry isn't empty otherwise, increase counter and skip
-        if(bufferPtr[counter] == NULL) {
+        /*if(bufferPtr[counter] == NULL) {
             counter++;
             continue;
-        }
+        }*/
 
         // Pass stored values into easier-to-handle vars
         long bufferPid = (long) bufferPtr[counter].pid;
@@ -83,8 +84,19 @@ void fastlog_dump(void)
         strftime(bufferTime, MAX_MSG_LENGTH, "%F %I:%M:%S", my_tm);
 
         // Print out our logs //TODO: Make sure to print out based on timestamp age
-		printf("[%ld]-[%s.%.9ld]-[%d]-<%s>\n", bufferPid, bufferTime, bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage);
+		fprintf(stderr, "[%ld]-[%s.%.9ld]-[%d]-<%s>\n", bufferPid, bufferTime, bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage);
 
         counter++;
     }
+
+    // Free our buffer once we're done with our dump
+    free_buff();
 }
+
+/**
+ * Function to free up the buffer once it's contents are dumped
+ */
+ void free_buff() {
+     free(bufferPtr[0].pid);
+     free(bufferPtr);
+ }
