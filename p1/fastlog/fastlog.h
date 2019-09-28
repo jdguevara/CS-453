@@ -2,7 +2,7 @@
 #define __FASTLOG_H
 
 /* The maximum number of logs that our ring buffer will hold at any one time.*/
-#define MAX_LOG_ENTRY 500
+#define MAX_LOG_ENTRY 5
 
 /*The maximum length of an individual log entry.*/
 #define MAX_MSG_LENGTH 80

@@ -1,6 +1,9 @@
 #include "fastlog.h"
 #include <unistd.h>
 #include <time.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 struct entry {
     pid_t pid;
@@ -9,15 +12,18 @@ struct entry {
     char message[MAX_MSG_LENGTH];
 };
 
+void check_buff_end(void);
+
+struct entry buffer[MAX_LOG_ENTRY];
 struct entry *bufferPtr;
-int readIndex;
-int writeIndex;
+int counter;
 
 void fastlog_init(void)
 {
-    bufferPtr = malloc(sizeof(struct entry)*MAX_LOG_ENTRY);
-    writeIndex = 0;
-    readIndex = 0;
+	// Set up pointer to array
+	bufferPtr = malloc(sizeof(struct entry) * MAX_LOG_ENTRY);
+	bufferPtr = buffer;
+	counter = 0;
 }
 
 
@@ -25,19 +31,17 @@ void fastlog_write(LEVEL lvl, char *text)
 {
     // Check if we need to reset
     check_buff_end();
-    time_t ltime;
-    ltime = time(NULL);
 
-    bufferPtr[writeIndex]->lvl = lvl;
-    bufferPtr[writeIndex}->message = strcpy(text);
-    bufferPtr[writeIndex}->pid = getpid();
-    bufferPtr[writeIndex}->time = ltime;
-    writeIndex++;
+    buffer[counter].lvl = lvl;
+    strcpy(buffer[counter].message, text);
+    buffer[counter].pid = getpid();
+	clock_gettime(CLOCK_REALTIME, &buffer[counter].time);
+    counter++;
 }
 
 void check_buff_end() {
-    if (writeIndex == MAX_LOG_ENTRY) {
-        writeIndex = 0;
+    if (counter == MAX_LOG_ENTRY) {
+        counter = 0;
     }
 }
 
@@ -50,8 +54,8 @@ void check_buff_end() {
 void fastlog_dump(void) 
 {
     int counter = 0;
-    while (bufferPtr) {
-        printf("[%ld]-[%s]-[%d]-<%s>", *(bufferPtr + counter)->pid, asctime(*(bufferPtr + counter)->time), *(bufferPtr + counter)->lvl, *(bufferPtr + counter)->message);
+    while (counter < MAX_LOG_ENTRY) {
+        printf("[%ld]-[%ld.%.9ld]-[%d]-<%s>\n", (long) bufferPtr[counter].pid, (long) bufferPtr[counter].time.tv_sec, bufferPtr[counter].time.tv_nsec, bufferPtr[counter].lvl, bufferPtr[counter].message);
         counter++;
     }
 }
