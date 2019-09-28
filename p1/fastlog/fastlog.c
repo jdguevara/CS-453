@@ -33,6 +33,11 @@ void fastlog_init(void)
 
 void fastlog_write(LEVEL lvl, char *text)
 {
+    // Check overflow and exit if so
+    if (counter < 0) {
+        return;
+    }
+
     // Check if we need to reset our count
     check_buff_end();
 
@@ -56,10 +61,6 @@ void fastlog_write(LEVEL lvl, char *text)
 
     counter++;
 
-    // Check overflow and exit -1 if so
-    if (counter < 0) {
-        return -1;
-    }
 }
 
 /**
