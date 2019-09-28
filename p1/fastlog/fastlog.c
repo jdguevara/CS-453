@@ -38,9 +38,7 @@ void fastlog_write(LEVEL lvl, char *text)
 
     // Get the values we need for our entry
     bufferPtr[counter].lvl = lvl; // Level
-    if (text == NULL) {
-        bufferPtr[counter].message = '';
-    } else {
+    if (text != NULL) {
         strcpy(bufferPtr[counter].message, text); // Message string (remember to copy, not just assign)
     }
     bufferPtr[counter].pid = getpid(); // Get the Process ID (PID)

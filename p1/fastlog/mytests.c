@@ -1,5 +1,6 @@
 #include "fastlog.h"
-
+#include <stdlib.h>
+#include <stdio.h>
 
 int main (void)
 
@@ -14,7 +15,8 @@ int main (void)
     fastlog_write(ERROR, "7");
     fastlog_write(ERROR, "8");
     fastlog_write(ERROR, "9");
-    fastlog_write(ERROR, "10");
+    fastlog_write(ERROR, "");
+    fastlog_write(ERROR, NULL);
     fastlog_dump();
 
 	fastlog_init();
