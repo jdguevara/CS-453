@@ -38,9 +38,13 @@ void fastlog_write(LEVEL lvl, char *text)
 
     // Get the values we need for our entry
     bufferPtr[counter].lvl = lvl; // Level
+
+	// Check for NULL strings
     if (text != NULL) {
         strcpy(bufferPtr[counter].message, text); // Message string (remember to copy, not just assign)
-    }
+    } else {
+		strcpy(bufferPtr[counter].message, "");
+	}
     bufferPtr[counter].pid = getpid(); // Get the Process ID (PID)
 	clock_gettime(CLOCK_REALTIME, &bufferPtr[counter].time); // Get the current time into our timespec
 
