@@ -58,9 +58,11 @@ void fastlog_dump(void)
     while (counter < MAX_LOG_ENTRY) {
         long bufferPid = (long) bufferPtr[counter].pid;
         struct tm *my_tm = localtime(&bufferPtr[counter].time.tv_sec);
+        char* bufferTime;
+        strtime(bufferTime, MAX_MSG_LENGTH, "%F %I:%M:%S", my_tm);
         int bufferLevel = bufferPtr[counter].lvl;
         char* bufferMessage = bufferPtr[counter].message;
-        printf("[%ld]-[%s.%.9ld]-[%d]-<%s>\n", bufferPid, asctime(my_tm), bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage);
+        printf("[%ld]-[%s.%.9ld]-[%d]-<%s>\n", bufferPid, bufferTime, bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage);
         counter++;
     }
 }
