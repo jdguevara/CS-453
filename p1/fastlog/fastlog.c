@@ -93,11 +93,11 @@ void fastlog_dump(void)
 		fprintf(stderr, "[%ld]-[%s.%.9ld]-[%d]-<%s>\n", bufferPid, bufferTime, bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage);
 
         counter++;
-
-        // Free up our bufferTime string
-        free(bufferTime);
-        bufferTime = NULL;
     }
+    
+	// Free up our bufferTime string
+    free(bufferTime);
+    bufferTime = NULL;
 }
 
 /**
