@@ -14,7 +14,6 @@ struct entry {
 
 // Personal function prototypes for compiler
 void check_buff_end(void);
-void free_buff(void);
 
 // Globals
 struct entry buffer[MAX_LOG_ENTRY];
@@ -99,11 +98,3 @@ void fastlog_dump(void)
     free(bufferTime);
     bufferTime = NULL;
 }
-
-/**
- * Function to free up the buffer once it's contents are dumped
- */
- void free_buff() {
-     free(bufferPtr);
-	 bufferPtr = NULL;
- }
