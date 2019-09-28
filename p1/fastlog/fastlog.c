@@ -93,6 +93,11 @@ void fastlog_dump(void)
 
         counter++;
     }
+
+    // Quick time check
+    for (int i = 0; i < MAX_LOG_ENTRY - 1; ++i) {
+        printf("%ld", difftime(bufferPtr[i+1].time.tv_nsec, bufferPtr[i].time.tv_nsec));
+    }
     
 	// Free up our bufferTime string
     free(bufferTime);
