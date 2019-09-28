@@ -24,7 +24,7 @@ int counter;
 void fastlog_init(void)
 {
 	// Set up pointer to array (make sure we've got space for all entries)
-	bufferPtr = malloc(sizeof(struct entry) * MAX_LOG_ENTRY);
+	//bufferPtr = malloc(sizeof(struct entry) * MAX_LOG_ENTRY);
 	bufferPtr = buffer;
 
 	// Initialize counter to zero
@@ -90,13 +90,15 @@ void fastlog_dump(void)
     }
 
     // Free our buffer once we're done with our dump
-    free_buff();
+ //   free_buff();
+	free(bufferTime);
+	bufferTime = NULL;
 }
 
 /**
  * Function to free up the buffer once it's contents are dumped
  */
  void free_buff() {
-     free(bufferPtr[0].pid);
      free(bufferPtr);
+	 bufferPtr = NULL;
  }
