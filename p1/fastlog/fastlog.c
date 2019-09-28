@@ -38,7 +38,11 @@ void fastlog_write(LEVEL lvl, char *text)
 
     // Get the values we need for our entry
     bufferPtr[counter].lvl = lvl; // Level
-    strcpy(bufferPtr[counter].message, text); // Message string (remember to copy, not just assign)
+    if (text == NULL) {
+        bufferPtr[counter].message = '';
+    } else {
+        strcpy(bufferPtr[counter].message, text); // Message string (remember to copy, not just assign)
+    }
     bufferPtr[counter].pid = getpid(); // Get the Process ID (PID)
 	clock_gettime(CLOCK_REALTIME, &bufferPtr[counter].time); // Get the current time into our timespec
 
@@ -73,12 +77,6 @@ void fastlog_dump(void)
     char* bufferTime = malloc(sizeof(char) * MAX_MSG_LENGTH);
 
     while (counter < MAX_LOG_ENTRY) {
-        // Check that our current entry isn't empty otherwise, increase counter and skip
-        /*if(bufferPtr[counter] == NULL) {
-            counter++;
-            continue;
-        }*/
-
         // Pass stored values into easier-to-handle vars
         bufferPid = (long) bufferPtr[counter].pid;
         bufferLevel = bufferPtr[counter].lvl;
