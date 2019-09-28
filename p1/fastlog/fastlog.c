@@ -88,15 +88,10 @@ void fastlog_dump(void)
         my_tm = localtime(&bufferPtr[counter].time.tv_sec);
         strftime(bufferTime, MAX_MSG_LENGTH, "%F %I:%M:%S", my_tm);
 
-        // Print out our logs //TODO: Make sure to print out based on timestamp age
+        // Print out our logs //TODO: Make sure to print out based on timestamp age (going to need to do this in part 2)
 		fprintf(stderr, "[%ld]-[%s.%.9ld]-[%d]-<%s>\n", bufferPid, bufferTime, bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage);
 
         counter++;
-    }
-
-    // Quick time check
-    for (int i = 0; i < MAX_LOG_ENTRY - 1; ++i) {
-        printf("%ld", difftime(bufferPtr[i+1].time.tv_nsec, bufferPtr[i].time.tv_nsec));
     }
     
 	// Free up our bufferTime string
