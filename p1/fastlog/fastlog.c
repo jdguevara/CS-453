@@ -54,8 +54,13 @@ void check_buff_end() {
 void fastlog_dump(void) 
 {
     int counter = 0;
+    long bufferPid = (long) bufferPtr[counter].pid;
+
+    int bufferLevel = bufferPtr[counter].lvl;
+    char* bufferMessage = bufferPtr[counter].message;
+
     while (counter < MAX_LOG_ENTRY) {
-        printf("[%ld]-[%ld.%.9ld]-[%d]-<%s>\n", (long) bufferPtr[counter].pid, (long) bufferPtr[counter].time.tv_sec, bufferPtr[counter].time.tv_nsec, bufferPtr[counter].lvl, bufferPtr[counter].message);
+        printf("[%ld]-[%ld.%.9ld]-[%d]-<%s>\n", bufferPid, (long) bufferPtr[counter].time.tv_sec, bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage;
         counter++;
     }
 }
