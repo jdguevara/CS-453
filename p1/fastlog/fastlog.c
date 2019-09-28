@@ -55,6 +55,11 @@ void fastlog_write(LEVEL lvl, char *text)
 	clock_gettime(CLOCK_REALTIME, &bufferPtr[counter].time); // Get the current time into our timespec
 
     counter++;
+
+    // Check overflow and exit -1 if so
+    if (counter < 0) {
+        return -1;
+    }
 }
 
 /**
