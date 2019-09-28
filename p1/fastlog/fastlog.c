@@ -32,10 +32,10 @@ void fastlog_write(LEVEL lvl, char *text)
     // Check if we need to reset
     check_buff_end();
 
-    buffer[counter].lvl = lvl;
-    strcpy(buffer[counter].message, text);
-    buffer[counter].pid = getpid();
-	clock_gettime(CLOCK_REALTIME, &buffer[counter].time);
+    bufferPtr[counter].lvl = lvl;
+    strcpy(bufferPtr[counter].message, text);
+    bufferPtr[counter].pid = getpid();
+	clock_gettime(CLOCK_REALTIME, &bufferPtr[counter].time);
     counter++;
 }
 
@@ -54,13 +54,13 @@ void check_buff_end() {
 void fastlog_dump(void) 
 {
     int counter = 0;
-    long bufferPid = (long) bufferPtr[counter].pid;
-
-    int bufferLevel = bufferPtr[counter].lvl;
-    char* bufferMessage = bufferPtr[counter].message;
 
     while (counter < MAX_LOG_ENTRY) {
-        printf("[%ld]-[%ld.%.9ld]-[%d]-<%s>\n", bufferPid, (long) bufferPtr[counter].time.tv_sec, bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage);
+        long bufferPid = (long) bufferPtr[counter].pid;
+        struct tm *my_tm = localtime(&bufferPtr[counter].time.tv_sec);
+        int bufferLevel = bufferPtr[counter].lvl;
+        char* bufferMessage = bufferPtr[counter].message;
+        printf("[%ld]-[%s.%.9ld]-[%d]-<%s>\n", bufferPid, asctime(my_tm), bufferPtr[counter].time.tv_nsec, bufferLevel, bufferMessage);
         counter++;
     }
 }
