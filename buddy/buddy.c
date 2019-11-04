@@ -121,7 +121,16 @@ void print_buddy_lists(void)
 
 /* Required method for unit testing */
 int get_min_k(void) {
-	return 0;
+	int i;
+	int min_k = MAX_KVAL; // Set this to our max
+
+	// Go through the list of available buddy blocks and see who's got the smallest kvalue
+	for (i = 0; i < MAX_KVAL; i++)
+	{
+		min_k = min_k < pool.avail[i].kval ? pool.avail[i].kval : min_k;
+	}
+	
+	return min_k;
 }
 
 /* Required method for unit testing */
