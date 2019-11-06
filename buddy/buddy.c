@@ -6,6 +6,12 @@
 /* supports memory upto 2^(MAX_KVAL-1) (or 64 GB) in size */
 #define  MAX_KVAL  37
 
+// These will help us to keep track of which list of blocks is not being used
+// as well as which blocks are currently free, and which blocks are being reserved
+#define  UNUSED		0
+#define  FREE  		1
+#define  RESERVED	2
+
 // Declare helper function prototypes
 int log_two(size_t size);
 int next_best_two(size_t size);
@@ -31,6 +37,7 @@ struct pool {
 	struct block_header avail[MAX_KVAL];
 } pool;
 
+struct pool mem_pool;
 // Pointer for list of buddy lists
 struct block_header *availPtr;
 
@@ -45,14 +52,13 @@ struct block_header *availPtr;
  * 		   ENOMEM - if there was an error in this part
  */
 int buddy_init(size_t size) 
-{ 
-	struct pool mem_pool;
-
+{
 	// Make sure that our size isn't zero and that we don't go over our max
-	if (size == 0 || size < (1<<29)) {
-		mem_pool.start = mmap(NULL, (1<<29), PROT_READ|PROT_WRITE, MAP_SHARED, ,); // Set our start point for our pool
-		mem_pool.size = 1<<29; // Default so that size (2^lgsize) is 512MB
-	} else if (size > (1<<MAX_KVAL-1)) {
+	// Since we're doing bit-shifting we need to use Long (L)
+	if (size == 0 || size < (1L<<19)) {
+		mem_pool.start = mmap(NULL, (1L<<29), PROT_READ|PROT_WRITE, MAP_SHARED, ,); // Set our start point for our pool
+		mem_pool.size = 1L<<29; // Default so that size (2^lgsize) is 512MB
+	} else if (size > (1L<<MAX_KVAL-1)) {
 		// If we've exceeded our memory size, then there's an error and we should report it and set our errno to ENOMEM
 		mem_error(); 
 		return errno;
@@ -121,21 +127,15 @@ void print_buddy_lists(void)
 
 /* Required method for unit testing */
 int get_min_k(void) {
-	int i;
-	int min_k = MAX_KVAL; // Set this to our max
-
-	// Go through the list of available buddy blocks and see who's got the smallest kvalue
-	for (i = 0; i < MAX_KVAL; i++)
-	{
-		min_k = min_k < pool.avail[i].kval ? pool.avail[i].kval : min_k;
-	}
+	// This would just give us the size of our block, plust the smallest amount of block space we can have and get its k
+	size_t min_k = next_best_two(sizeof(block_header) + (1L<<19));
 	
 	return min_k;
 }
 
 /* Required method for unit testing */
 int get_max_k(void) {
-	return 0;
+	return mem_pool.lgsize;
 }
 
 /**
@@ -145,7 +145,7 @@ int get_max_k(void) {
  * @param size - the size we requested
  */ 
 int log_two(size_t size) {
-	return log(size)/log(2);
+	return (int)ceil(log(size)/log(2)); // This should always give us the ceiling of log base 2 of our size as an int
 }
 
 /**

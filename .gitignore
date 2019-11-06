@@ -1,4 +1,5 @@
 #Files to ignore
-.idea
+.idea/
+.vscode/
 CS453-resources/
 *.pdf
