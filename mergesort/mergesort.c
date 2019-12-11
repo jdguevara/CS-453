@@ -15,7 +15,7 @@ void serial_mergesort(int A[], int p, int r);
 void merge(int A[], int p, int q, int r);
 void insertion_sort(int A[], int p, int r);
 void parallel_mergesort(int A[], int p, int r, int numthreads);
-void *serial_mergesort(void *)
+void *mergesort(void *args);
 
 const int INSERTION_SORT_THRESHOLD = 100; //based on trial and error
 
