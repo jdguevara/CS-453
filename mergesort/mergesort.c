@@ -97,8 +97,8 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 		serial_mergesort(A, p, r);
 		break;
 	case 2:
-		*low = (int *) malloc(sizeof(int) * (numthreads/2)+1);
-		*high = (int *) malloc(sizeof(int) * (numthreads/2)+1);
+		low = (int *) malloc(sizeof(int) * (numthreads/2)+1);
+		high = (int *) malloc(sizeof(int) * (numthreads/2)+1);
 
 		// Fill up each half of the array accordingly
 		for (j = p; j < r/2; j++)
