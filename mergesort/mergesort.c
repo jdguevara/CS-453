@@ -74,6 +74,7 @@ void* parallel_serial_sort(void *args) {
 	int t_r = t_args->threadR;
 
 	serial_mergesort(t_A, t_p, t_r);	
+	pthread_exit(NULL);
 }
 
 /*
@@ -103,7 +104,7 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 		for (j = p; j < r/2; j++)
 		{
 			low[j] = A[j];
-			high[j] = A[j+(size/2)];
+			high[j] = A[j+(r/2)];
 		}
 		
 		// Filling out each half's arguments 
