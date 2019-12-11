@@ -66,7 +66,7 @@ void serial_mergesort(int A[], int p, int r)
 	}
 }
 
-void* serial_mergesort(void *args) {
+void* parallel_serial_sort(void *args) {
 	struct thread_args *t_args = (struct thread_args *) args;
 
 	int *t_A = t_args->threadA;
@@ -84,9 +84,9 @@ void* serial_mergesort(void *args) {
  */
 void parallel_mergesort(int A[], int p, int r, int numthreads) {
 	pthread_t thread[numthreads];
-	int* low;
-	int* mid;
-	int* high;
+	int *low;
+	int *mid;
+	int *high;
 	int i, j;
 
 	// Determining how to proceed based on thread count
@@ -121,7 +121,7 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 	// Creating threads
 	for (i = 0; i < numthreads; i++)
 	{
-		pthread_create(&thread[i], NULL, mergesort, (void *) &parallel_args[i]);
+		pthread_create(&thread[i], NULL, parallel_serial_sort, (void *) &parallel_args[i]);
 	}
 	
 	// Joining the threads
