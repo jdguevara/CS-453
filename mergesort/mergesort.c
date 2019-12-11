@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <pthread.h>
 
 
 #define TRUE 1
 #define FALSE 0
+#define THREAD_MAX 4
 
 // function prototypes
 void serial_mergesort(int A[], int p, int r); 
@@ -15,6 +17,14 @@ void insertion_sort(int A[], int p, int r);
 
 const int INSERTION_SORT_THRESHOLD = 100; //based on trial and error
 
+// struct for pthread_create parameters
+struct thread_args {
+	int *threadA;
+	int threadP;
+	int threadR;
+}
+
+struct thread_args parallel_args[THREAD_MAX];
 
 /*
  * insertion_sort(int A[], int p, int r):
@@ -55,7 +65,79 @@ void serial_mergesort(int A[], int p, int r)
 	}
 }
 
+void *serial_mergesort(void *args) {
+	struct thread_args *t_args = (struct thread_args *) args;
 
+	int *t_A = t_args->threadA;
+	int t_p = t_args->threadP;
+	int t_r = t_args->threadR;
+
+	serial_mergesort(t_A, t_p, t_r);	
+}
+
+/*
+ * parallel_mergesort(int A[], int p, int r):
+ * 
+ * description: Sorts the section of the array A[p...r] 
+ * 				using a multi-threaded approach. 
+ */
+void parallel_mergesort(int A[], int p, int r, int numthreads) {
+	pthread_t thread[numthreads];
+
+	// Determining how to proceed based on thread count
+	switch (numthreads)
+	{
+	case 1:
+		serial_mergesort(A, p, r);
+		break;
+	case 2:
+		int *low = (int *) malloc(sizeof(int) * (numthreads/2)+1);
+		int *high = (int *) malloc(sizeof(int) * (numthreads/2)+1);
+
+		// Fill up each half of the array accordingly
+		for (int j = p; j < r/2; j++)
+		{
+			low[j] = A[j];
+			high[j] = A[j+(size/2)];
+		}
+		
+		// Filling out each half's arguments 
+		parallel_args[0].threadA = low;
+		parallel_args[0].threadP = p;
+		parallel_args[0].threadR = r/2;
+
+		parallel_args[1].threadA = high;
+		parallel_args[1].threadP = p;
+		parallel_args[1].threadR = r/2;
+	default:
+		break;
+	}
+
+	// Creating threads
+	for (int i = 0; i < numthreads; i++)
+	{
+		pthread_create(&thread[i], NULL, serial_mergesort, (void *) &parallel_args[i]);
+	}
+	
+	// Joining the threads
+	for (int i = 0; i < numthreads; i++)
+	{
+		pthread_join(thread[i], NULL);
+	}
+
+	// // Merge the last parts, determined by numthreads used
+	// switch (numthreads)
+	// {
+	// case 1:
+	// 	// This case should've already merged its stuff just break
+	// 	break;
+	// case 2:
+	// 	merge
+	// default:
+	// 	break;
+	// }
+	
+}
 
 /*
  * merge(int A[], int p, int q, int r):

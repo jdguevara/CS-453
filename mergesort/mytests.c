@@ -79,7 +79,8 @@ int main(int argc, char **argv) {
 
 	// sort the input (and time it)
 	start_time = getMilliSeconds();
-	serial_mergesort(A,1,n);
+	// serial_mergesort(A,1,n);
+	parallel_mergesort(A, 1, n, 2);
 	sorting_time = getMilliSeconds() - start_time;
 	
 	// print results if correctly sorted otherwise cry foul and exit
