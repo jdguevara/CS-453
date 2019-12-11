@@ -12,6 +12,7 @@ void generate_random_array(int A[], int n, int seed);
 void serial_mergesort(int A[], int p, int r); 
 void merge(int A[], int p, int q, int r);
 void insertion_sort(int A[], int p, int r);
+void parallel_mergesort(int A[], int p, int r, int numthreads);
 double getMilliSeconds(void);
 
 
