@@ -160,7 +160,16 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 		pthread_join(thread[i], NULL);
 	}
 
-	merge(A, p, q, r);
+	//merge results
+	merge(A, p, r/8, r/4);
+	merge(A, r/4+1, 3*r/8, r/2);
+	merge(A, r/2+1, 5*r/8, 3*r/4);
+	merge(A, 3*r/4+1, 7*r/8, r);
+
+	merge(A, p, r/4, r/2);
+	merge(A, r/2+1, 3*r/4, r);
+
+	merge(A, p, r/2, r);
 }
 
 /*
