@@ -59,14 +59,26 @@ int check_if_sorted(int A[], int n)
 
 int main(int argc, char **argv) {
 	
-	if (argc < 2) { // there must be at least one command-line argument
-			fprintf(stderr, "Usage: %s <input size> [<seed>] \n", argv[0]);
+	if (argc <3) { // there must be at least one command-line argument
+			fprintf(stderr, "Usage: %s <input size> <num_threads> [<seed>] \n", argv[0]);
 			exit(1);
 	}
 	
 	int n = atoi(argv[1]);
 	int seed = 1;
-	if (argc == 3)
+	// Get the number of threads and make sure it's possitive and greater than zero
+	int threads = atoi(argv[2]);
+	if (threads <= 0)
+	{
+		threads = 1;
+	} else if (threads > 8)
+	{
+		fprintf(stderr, "Please limit the number of threads used to 8\n");
+		exit(1);
+	}
+	
+	
+	if (argc == 4)
 		seed = atoi(argv[2]);
 		
 	int *A = (int *) malloc(sizeof(int) * (n+1)); // n+1 since we are using A[1]..A[n]
@@ -80,8 +92,12 @@ int main(int argc, char **argv) {
 
 	// sort the input (and time it)
 	start_time = getMilliSeconds();
-	// serial_mergesort(A,1,n);
-	parallel_mergesort(A, 1, n, 2);
+	if (threads == 1)
+	{
+		serial_mergesort(A,1,n);
+	} else {
+		parallel_mergesort(A, 1, n, threads);
+	}
 	sorting_time = getMilliSeconds() - start_time;
 	
 	// print results if correctly sorted otherwise cry foul and exit

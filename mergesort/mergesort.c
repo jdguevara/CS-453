@@ -116,6 +116,34 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 		parallel_args[1].threadA = A;
 		parallel_args[1].threadP = q+1;
 		parallel_args[1].threadR = r;
+	case 8:
+		for (i = 0; i < THREAD_MAX; i++)
+		{
+			parallel_args[i].threadA = A;
+		}
+		parallel_args[0].threadP = p;
+		parallel_args[0].threadR = r/8;
+
+		parallel_args[1].threadP = r/8+1;
+		parallel_args[1].threadR = r/4;
+
+		parallel_args[2].threadP = r/4+1;
+		parallel_args[2].threadR = 3*r/8;
+
+		parallel_args[3].threadP = 3*r/8+1;
+		parallel_args[3].threadR = r/2;
+
+		parallel_args[4].threadP = r/2+1;
+		parallel_args[4].threadR = 5*r/8;
+
+		parallel_args[5].threadP = 5*r/8+1;
+		parallel_args[5].threadR = 3*r/4;
+		
+		parallel_args[6].threadP = 3*r/4+1;
+		parallel_args[6].threadR = 7*r/8;
+
+		parallel_args[7].threadP = 7*r/8+1;
+		parallel_args[7].threadR = r;
 	default:
 		break;
 	}
