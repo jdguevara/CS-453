@@ -8,7 +8,7 @@
 
 #define TRUE 1
 #define FALSE 0
-#define THREAD_MAX 4
+#define THREAD_MAX 8
 
 // function prototypes
 void serial_mergesort(int A[], int p, int r); 
@@ -85,10 +85,10 @@ void* parallel_serial_sort(void *args) {
  */
 void parallel_mergesort(int A[], int p, int r, int numthreads) {
 	pthread_t thread[numthreads];
-	int *low;
-	int *mid;
-	int *high;
-	int i, j;
+	//int *low;
+	//int *mid;
+	//int *high;
+	int i, j, q;
 
 	// Determining how to proceed based on thread count
 	switch (numthreads)
@@ -97,24 +97,25 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 		serial_mergesort(A, p, r);
 		break;
 	case 2:
-		low = (int *) malloc(sizeof(int) * (numthreads/2)+1);
-		high = (int *) malloc(sizeof(int) * (numthreads/2)+1);
+		q = r/2;
+		//low = (int *) malloc(sizeof(int) * (r/2)+1);
+		//high = (int *) malloc(sizeof(int) * (r/2)+1);
 
 		// Fill up each half of the array accordingly
-		for (j = p; j < r/2; j++)
+		/*for (j = p; j < r/2; j++)
 		{
 			low[j] = A[j];
 			high[j] = A[j+(r/2)];
 		}
-		
+		*/
 		// Filling out each half's arguments 
-		parallel_args[0].threadA = low;
+		parallel_args[0].threadA = A;
 		parallel_args[0].threadP = p;
-		parallel_args[0].threadR = r/2;
+		parallel_args[0].threadR = q;
 
-		parallel_args[1].threadA = high;
-		parallel_args[1].threadP = p;
-		parallel_args[1].threadR = r/2;
+		parallel_args[1].threadA = A;
+		parallel_args[1].threadP = q+1;
+		parallel_args[1].threadR = r;
 	default:
 		break;
 	}
@@ -131,18 +132,7 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 		pthread_join(thread[i], NULL);
 	}
 
-	// // Merge the last parts, determined by numthreads used
-	// switch (numthreads)
-	// {
-	// case 1:
-	// 	// This case should've already merged its stuff just break
-	// 	break;
-	// case 2:
-	// 	merge
-	// default:
-	// 	break;
-	// }
-	
+	merge(A, p, q, r);
 }
 
 /*

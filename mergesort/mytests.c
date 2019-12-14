@@ -89,6 +89,7 @@ int main(int argc, char **argv) {
 		printf("Sorting %d elements took %4.2lf seconds.\n", n,  sorting_time/1000.0);
 	} else { 
 		printf("%s: sorting failed!!!!\n", argv[0]);
+		printf("Processing %d elements took %4.2lf seconds.\n", n,  sorting_time/1000.0);
 		exit(EXIT_FAILURE);
 	}
 
