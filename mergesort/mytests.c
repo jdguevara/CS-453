@@ -98,6 +98,8 @@ int main(int argc, char **argv) {
 	double cpu_time;
 	double sytem_time;
 
+	clock_tick = sysconf(_SC_CLK_TCK);
+
 	// sort the input (and time it)
 	start_time = getMilliSeconds();
 	cpu_time = report_cpu_time() * clock_tick;
@@ -106,8 +108,6 @@ int main(int argc, char **argv) {
 	parallel_mergesort(A, 1, n, threads);
 
 	sorting_time = getMilliSeconds() - start_time;
-
-	clock_tick = sysconf(_SC_CLK_TCK);
 
 	cpu_time = report_cpu_time() * clock_tick - cpu_time;
 	
