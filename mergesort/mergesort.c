@@ -97,7 +97,11 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 		{
 			parallel_args[i].threadA = A;
 			parallel_args[i].threadP = p + q * i;
-			parallel_args[i].threadR = (q * i) + q;
+			if (i == numthreads - 1) {
+				parallel_args[i].threadR = r;
+			} else {
+				parallel_args[i].threadR = (q * i) + q;
+			}
 		}
 	}
 	
