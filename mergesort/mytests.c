@@ -15,7 +15,6 @@ void merge(int A[], int p, int q, int r);
 void insertion_sort(int A[], int p, int r);
 void parallel_mergesort(int A[], int p, int r, int numthreads);
 double getMilliSeconds(void);
-float report_cpu_time(void);
 
 
 /*
@@ -100,7 +99,7 @@ int main(int argc, char **argv) {
 	parallel_mergesort(A, 1, n, threads);
 
 	sorting_time = getMilliSeconds() - start_time;
-
+	
 	// print results if correctly sorted otherwise cry foul and exit
 	if (check_if_sorted(A,n)) {
 		printf("Sorting %d elements took %4.2lf seconds.\n", n,  sorting_time/1000.0);
