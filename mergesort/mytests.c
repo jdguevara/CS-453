@@ -100,6 +100,7 @@ int main(int argc, char **argv) {
 
 	// sort the input (and time it)
 	start_time = getMilliSeconds();
+	cpu_time = report_cpu_time() * clock_tick;
 	
 	// Everything will now pass through the parallel sort
 	parallel_mergesort(A, 1, n, threads);
