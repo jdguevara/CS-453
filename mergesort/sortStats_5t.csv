@@ -1,201 +1,101 @@
 No. Threads, No. Elements, Time (s)
-5, 1000000, 0.10
-Finished writing to csv
+5, 1000000, 0.11
 5, 2000000, 0.18
-Finished writing to csv
-5, 3000000, 0.28
-Finished writing to csv
+5, 3000000, 0.27
 5, 4000000, 0.37
-Finished writing to csv
-5, 5000000, 0.47
-Finished writing to csv
-5, 6000000, 0.56
-Finished writing to csv
+5, 5000000, 0.44
+5, 6000000, 0.55
 5, 7000000, 0.65
-Finished writing to csv
 5, 8000000, 0.75
-Finished writing to csv
-5, 9000000, 0.83
-Finished writing to csv
-5, 10000000, 0.92
-Finished writing to csv
-5, 11000000, 1.00
-Finished writing to csv
-5, 12000000, 1.10
-Finished writing to csv
-5, 13000000, 1.18
-Finished writing to csv
-5, 14000000, 1.31
-Finished writing to csv
-5, 15000000, 1.41
-Finished writing to csv
-5, 16000000, 1.53
-Finished writing to csv
-5, 17000000, 1.52
-Finished writing to csv
-5, 18000000, 1.72
-Finished writing to csv
-5, 19000000, 1.75
-Finished writing to csv
-5, 20000000, 1.86
-Finished writing to csv
-5, 21000000, 1.96
-Finished writing to csv
-5, 22000000, 2.04
-Finished writing to csv
-5, 23000000, 2.14
-Finished writing to csv
-5, 24000000, 2.27
-Finished writing to csv
-5, 25000000, 2.42
-Finished writing to csv
+5, 9000000, 0.82
+5, 10000000, 0.91
+5, 11000000, 0.99
+5, 12000000, 1.13
+5, 13000000, 1.19
+5, 14000000, 1.28
+5, 15000000, 1.40
+5, 16000000, 1.52
+5, 17000000, 1.51
+5, 18000000, 1.59
+5, 19000000, 1.72
+5, 20000000, 1.82
+5, 21000000, 1.94
+5, 22000000, 2.01
+5, 23000000, 2.16
+5, 24000000, 2.20
+5, 25000000, 2.32
 5, 26000000, 2.47
-Finished writing to csv
-5, 27000000, 2.54
-Finished writing to csv
-5, 28000000, 2.72
-Finished writing to csv
-5, 29000000, 2.78
-Finished writing to csv
-5, 30000000, 2.86
-Finished writing to csv
-5, 31000000, 2.99
-Finished writing to csv
-5, 32000000, 3.07
-Finished writing to csv
-5, 33000000, 3.08
-Finished writing to csv
-5, 34000000, 3.14
-Finished writing to csv
-5, 35000000, 3.18
-Finished writing to csv
-5, 36000000, 3.30
-Finished writing to csv
-5, 37000000, 3.45
-Finished writing to csv
+5, 27000000, 2.52
+5, 28000000, 2.71
+5, 29000000, 2.73
+5, 30000000, 2.83
+5, 31000000, 2.94
+5, 32000000, 3.09
+5, 33000000, 3.06
+5, 34000000, 3.05
+5, 35000000, 3.26
+5, 36000000, 3.31
+5, 37000000, 3.36
 5, 38000000, 3.49
-Finished writing to csv
-5, 39000000, 3.59
-Finished writing to csv
-5, 40000000, 3.65
-Finished writing to csv
-5, 41000000, 3.75
-Finished writing to csv
-5, 42000000, 3.86
-Finished writing to csv
-5, 43000000, 4.11
-Finished writing to csv
-5, 44000000, 4.07
-Finished writing to csv
-5, 45000000, 4.19
-Finished writing to csv
-5, 46000000, 4.32
-Finished writing to csv
+5, 39000000, 3.61
+5, 40000000, 3.70
+5, 41000000, 3.74
+5, 42000000, 3.87
+5, 43000000, 3.91
+5, 44000000, 4.09
+5, 45000000, 4.14
+5, 46000000, 4.29
 5, 47000000, 4.37
-Finished writing to csv
-5, 48000000, 4.47
-Finished writing to csv
-5, 49000000, 4.62
-Finished writing to csv
-5, 50000000, 4.68
-Finished writing to csv
-5, 51000000, 4.93
-Finished writing to csv
-5, 52000000, 4.92
-Finished writing to csv
-5, 53000000, 4.98
-Finished writing to csv
-5, 54000000, 5.10
-Finished writing to csv
-5, 55000000, 5.27
-Finished writing to csv
-5, 56000000, 5.34
-Finished writing to csv
-5, 57000000, 5.48
-Finished writing to csv
-5, 58000000, 5.55
-Finished writing to csv
-5, 59000000, 5.62
-Finished writing to csv
-5, 60000000, 5.93
-Finished writing to csv
-5, 61000000, 5.99
-Finished writing to csv
-5, 62000000, 6.01
-Finished writing to csv
-5, 63000000, 6.24
-Finished writing to csv
-5, 64000000, 6.30
-Finished writing to csv
-5, 65000000, 6.38
-Finished writing to csv
-5, 66000000, 6.30
-Finished writing to csv
-5, 67000000, 6.15
-Finished writing to csv
-5, 68000000, 6.38
-Finished writing to csv
-5, 69000000, 6.44
-Finished writing to csv
-5, 70000000, 6.48
-Finished writing to csv
-5, 71000000, 6.48
-Finished writing to csv
-5, 72000000, 6.58
-Finished writing to csv
-5, 73000000, 6.82
-Finished writing to csv
-5, 74000000, 6.83
-Finished writing to csv
-5, 75000000, 6.99
-Finished writing to csv
-5, 76000000, 7.13
-Finished writing to csv
-5, 77000000, 7.22
-Finished writing to csv
-5, 78000000, 7.28
-Finished writing to csv
-5, 79000000, 7.46
-Finished writing to csv
-5, 80000000, 7.50
-Finished writing to csv
-5, 81000000, 7.58
-Finished writing to csv
-5, 82000000, 7.82
-Finished writing to csv
-5, 83000000, 7.78
-Finished writing to csv
-5, 84000000, 7.96
-Finished writing to csv
-5, 85000000, 8.08
-Finished writing to csv
-5, 86000000, 8.23
-Finished writing to csv
-5, 87000000, 8.17
-Finished writing to csv
-5, 88000000, 8.49
-Finished writing to csv
-5, 89000000, 8.47
-Finished writing to csv
-5, 90000000, 8.64
-Finished writing to csv
-5, 91000000, 8.58
-Finished writing to csv
-5, 92000000, 8.80
-Finished writing to csv
-5, 93000000, 9.06
-Finished writing to csv
-5, 94000000, 9.20
-Finished writing to csv
-5, 95000000, 9.10
-Finished writing to csv
-5, 96000000, 9.29
-Finished writing to csv
-5, 97000000, 9.48
-Finished writing to csv
-5, 98000000, 9.37
-Finished writing to csv
-5, 99000000, 9.53
-Finished writing to csv
-5, 100000000, 9.60
-Finished writing to csv
+5, 48000000, 4.49
+5, 49000000, 4.60
+5, 50000000, 4.77
+5, 51000000, 4.86
+5, 52000000, 4.89
+5, 53000000, 5.06
+5, 54000000, 5.20
+5, 55000000, 5.18
+5, 56000000, 5.28
+5, 57000000, 5.67
+5, 58000000, 5.51
+5, 59000000, 5.68
+5, 60000000, 5.77
+5, 61000000, 5.87
+5, 62000000, 6.00
+5, 63000000, 6.22
+5, 64000000, 6.24
+5, 65000000, 6.31
+5, 66000000, 6.14
+5, 67000000, 6.12
+5, 68000000, 6.19
+5, 69000000, 6.29
+5, 70000000, 6.49
+5, 71000000, 6.55
+5, 72000000, 6.59
+5, 73000000, 6.69
+5, 74000000, 6.87
+5, 75000000, 7.17
+5, 76000000, 7.59
+5, 77000000, 7.24
+5, 78000000, 7.43
+5, 79000000, 7.61
+5, 80000000, 8.28
+5, 81000000, 7.84
+5, 82000000, 7.98
+5, 83000000, 7.95
+5, 84000000, 8.03
+5, 85000000, 8.00
+5, 86000000, 8.30
+5, 87000000, 8.33
+5, 88000000, 8.27
+5, 89000000, 8.58
+5, 90000000, 8.60
+5, 91000000, 8.68
+5, 92000000, 8.87
+5, 93000000, 8.92
+5, 94000000, 8.88
+5, 95000000, 9.11
+5, 96000000, 9.23
+5, 97000000, 9.31
+5, 98000000, 9.44
+5, 99000000, 9.56
+5, 100000000, 9.64
