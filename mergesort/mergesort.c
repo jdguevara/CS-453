@@ -92,11 +92,17 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 	{
 		serial_mergesort(A, p, r);
 	} else {
+		// split the array based on our number of threads 
 		q = r/numthreads;
+
+		// set the parameters to pass to each thread into our struct
 		for (i = 0; i < numthreads; i++)
 		{
+			// Every thread works on A
 			parallel_args[i].threadA = A;
+			// Start point for the section each thread works on
 			parallel_args[i].threadP = p + q * i;
+			// End point for the section each thread works on
 			if (i == numthreads - 1) {
 				parallel_args[i].threadR = r;
 			} else {
