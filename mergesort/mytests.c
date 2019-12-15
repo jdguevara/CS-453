@@ -91,6 +91,9 @@ int main(int argc, char **argv) {
 	
 	double start_time;
 	double sorting_time;
+	long clock_tick;
+	double cpu_time;
+	double sytem_time;
 
 	// sort the input (and time it)
 	start_time = getMilliSeconds();
@@ -99,10 +102,15 @@ int main(int argc, char **argv) {
 	parallel_mergesort(A, 1, n, threads);
 
 	sorting_time = getMilliSeconds() - start_time;
+
+	clock_tick = sysconf(_SC_CLK_TCK);
+
+	cpu_time = report_cpu_time() * clock_tick;
 	
 	// print results if correctly sorted otherwise cry foul and exit
 	if (check_if_sorted(A,n)) {
 		printf("Sorting %d elements took %4.2lf seconds.\n", n,  sorting_time/1000.0);
+		printf("CPU time: %4.2lf seconds. \n", cpu_time);
 	} else { 
 		printf("%s: sorting failed!!!!\n", argv[0]);
 		// I still wanted to be able to see how long failures took to process
