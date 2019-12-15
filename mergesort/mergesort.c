@@ -85,70 +85,71 @@ void* parallel_serial_sort(void *args) {
  */
 void parallel_mergesort(int A[], int p, int r, int numthreads) {
 	pthread_t thread[numthreads];
-	//int *low;
-	//int *mid;
-	//int *high;
-	int i, j, q;
+	int i, q;
 
 	// Determining how to proceed based on thread count
-	switch (numthreads)
+	if (numthreads == 1)
 	{
-	case 1:
 		serial_mergesort(A, p, r);
-		break;
-	case 2:
-		q = r/2;
-		//low = (int *) malloc(sizeof(int) * (r/2)+1);
-		//high = (int *) malloc(sizeof(int) * (r/2)+1);
-
-		// Fill up each half of the array accordingly
-		/*for (j = p; j < r/2; j++)
-		{
-			low[j] = A[j];
-			high[j] = A[j+(r/2)];
-		}
-		*/
-		// Filling out each half's arguments 
-		parallel_args[0].threadA = A;
-		parallel_args[0].threadP = p;
-		parallel_args[0].threadR = q;
-
-		parallel_args[1].threadA = A;
-		parallel_args[1].threadP = q+1;
-		parallel_args[1].threadR = r;
-	case 8:
+	} else {
+		q = r/numthreads;
 		for (i = 0; i < THREAD_MAX; i++)
 		{
 			parallel_args[i].threadA = A;
+			parallel_args[i].threadP = p + q * i;
+			parallel_args[i].threadR = q * i;
 		}
-		parallel_args[0].threadP = p;
-		parallel_args[0].threadR = r/8;
-
-		parallel_args[1].threadP = r/8+1;
-		parallel_args[1].threadR = r/4;
-
-		parallel_args[2].threadP = r/4+1;
-		parallel_args[2].threadR = 3*r/8;
-
-		parallel_args[3].threadP = 3*r/8+1;
-		parallel_args[3].threadR = r/2;
-
-		parallel_args[4].threadP = r/2+1;
-		parallel_args[4].threadR = 5*r/8;
-
-		parallel_args[5].threadP = 5*r/8+1;
-		parallel_args[5].threadR = 3*r/4;
-		
-		parallel_args[6].threadP = 3*r/4+1;
-		parallel_args[6].threadR = 7*r/8;
-
-		parallel_args[7].threadP = 7*r/8+1;
-		parallel_args[7].threadR = r;
-	default:
-		break;
 	}
+	
+	// switch (numthreads)
+	// {
+	// case 1:
+	// 	serial_mergesort(A, p, r);
+	// 	break;
+	// case 2:
+	// 	q = r/2;
+	// 	parallel_args[0].threadA = A;
+	// 	parallel_args[0].threadP = p;
+	// 	parallel_args[0].threadR = q;
 
-	// Creating threads
+	// 	parallel_args[1].threadA = A;
+	// 	parallel_args[1].threadP = q+1;
+	// 	parallel_args[1].threadR = r;
+	// // case 8:
+	// 	q = r/8;
+	// 	for (i = 0; i < THREAD_MAX; i++)
+	// 	{
+	// 		parallel_args[i].threadA = A;
+	// 		parallel_args[i].threadP = p + q * i;
+	// 		parallel_args[i].threadR = q * i;
+	// 	}
+		
+
+	// 	parallel_args[1].threadP = r/8+1;
+	// 	parallel_args[1].threadR = r/4;
+
+	// 	parallel_args[2].threadP = r/4+1;
+	// 	parallel_args[2].threadR = 3*r/8;
+
+	// 	parallel_args[3].threadP = 3*r/8+1;
+	// 	parallel_args[3].threadR = r/2;
+
+	// 	parallel_args[4].threadP = r/2+1;
+	// 	parallel_args[4].threadR = 5*r/8;
+
+	// 	parallel_args[5].threadP = 5*r/8+1;
+	// 	parallel_args[5].threadR = 3*r/4;
+		
+	// 	parallel_args[6].threadP = 3*r/4+1;
+	// 	parallel_args[6].threadR = 7*r/8;
+
+	// 	parallel_args[7].threadP = 7*r/8+1;
+	// 	parallel_args[7].threadR = r;
+	// default:
+	// 	break;
+	// }
+
+	// Create threads
 	for (i = 0; i < numthreads; i++)
 	{
 		pthread_create(&thread[i], NULL, parallel_serial_sort, (void *) &parallel_args[i]);
@@ -161,7 +162,12 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 	}
 
 	//merge results
-	merge(A, p, r/8, r/4);
+	for (i = 1; i < numthreads+1; i++)
+	{
+		merge(A, p, q * i, (q*i) + q);
+	}
+	
+	/* merge(A, p, r/8, r/4);
 	merge(A, r/4+1, 3*r/8, r/2);
 	merge(A, r/2+1, 5*r/8, 3*r/4);
 	merge(A, 3*r/4+1, 7*r/8, r);
@@ -169,7 +175,7 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 	merge(A, p, r/4, r/2);
 	merge(A, r/2+1, 3*r/4, r);
 
-	merge(A, p, r/2, r);
+	merge(A, p, r/2, r); */
 }
 
 /*

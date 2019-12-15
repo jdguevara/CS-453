@@ -92,12 +92,12 @@ int main(int argc, char **argv) {
 
 	// sort the input (and time it)
 	start_time = getMilliSeconds();
-	if (threads == 1)
+	/* if (threads == 1)
 	{
 		serial_mergesort(A,1,n);
-	} else {
+	} else { */
 		parallel_mergesort(A, 1, n, threads);
-	}
+	// }
 	sorting_time = getMilliSeconds() - start_time;
 	
 	// print results if correctly sorted otherwise cry foul and exit
