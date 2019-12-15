@@ -109,7 +109,7 @@ int main(int argc, char **argv) {
 
 	clock_tick = sysconf(_SC_CLK_TCK);
 
-	cpu_time = report_cpu_time() * clock_tick;
+	cpu_time = report_cpu_time() * clock_tick - cpu_time;
 	
 	// print results if correctly sorted otherwise cry foul and exit
 	if (check_if_sorted(A,n)) {
