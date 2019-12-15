@@ -1,6 +1,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/times.h> 
 
 
 #define TRUE 1
@@ -15,6 +17,7 @@ void merge(int A[], int p, int q, int r);
 void insertion_sort(int A[], int p, int r);
 void parallel_mergesort(int A[], int p, int r, int numthreads);
 double getMilliSeconds(void);
+float report_cpu_time(void);
 
 
 /*
