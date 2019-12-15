@@ -162,7 +162,7 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 	}
 
 	//merge results
-	for (i = 1; i < numthreads+1; i++)
+	for (i = 1; i < numthreads; i++)
 	{
 		merge(A, p, q * i, (q*i) + q);
 	}
