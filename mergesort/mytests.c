@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
 		exit(EXIT_FAILURE);
 	}
 
-	// Writing to file, not the best method at the moment
+	// Writing to file
 	if (print_file)
 	{
 		FILE *fp;
@@ -137,10 +137,16 @@ int main(int argc, char **argv) {
 		snprintf(filename, sizeof(filename), "sortStats_%dt.csv", threads);
 
 		fp = fopen(filename, "a+");
+		fseek(fp, 0, SEEK_END);
+    	unsigned long len = (unsigned long)ftell(fp);
+		if (len == 0) 
+		{
+			fprintf(fp, "No. Threads, No. Elements, Time (s)\n");
+		}
 		fprintf(fp, "%d, %d, %4.2lf\n", threads, n, sorting_time/1000.0);
 		fputs("Finished writing to csv\n", fp);
 		fclose(fp);
-		printf("Finished writing to %s", filename);
+		printf("Finished writing to %s\n", filename);
 	}	
 
 	exit(EXIT_SUCCESS); 
