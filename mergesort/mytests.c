@@ -69,6 +69,7 @@ int main(int argc, char **argv) {
 	int seed = 1;
 	// Get the number of threads and make sure it's possitive and greater than zero
 	int threads = atoi(argv[2]);
+	// Make sure we have a positive number of threads and that we're within our set limit of threads
 	if (threads <= 0)
 	{
 		threads = 1;
@@ -78,7 +79,7 @@ int main(int argc, char **argv) {
 		exit(1);
 	}
 	
-	
+	// Get the randomized seed
 	if (argc == 4)
 		seed = atoi(argv[2]);
 		
@@ -93,12 +94,10 @@ int main(int argc, char **argv) {
 
 	// sort the input (and time it)
 	start_time = getMilliSeconds();
-	/* if (threads == 1)
-	{
-		serial_mergesort(A,1,n);
-	} else { */
-		parallel_mergesort(A, 1, n, threads);
-	// }
+	
+	// Everything will now pass through the parallel sort
+	parallel_mergesort(A, 1, n, threads);
+
 	sorting_time = getMilliSeconds() - start_time;
 	
 	// print results if correctly sorted otherwise cry foul and exit
