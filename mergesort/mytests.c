@@ -61,7 +61,7 @@ int check_if_sorted(int A[], int n)
 int main(int argc, char **argv) {
 	
 	if (argc <3) { // there must be at least one command-line argument
-			fprintf(stderr, "Usage: %s <input size> <num_threads> [<seed>] \n", argv[0]);
+			fprintf(stderr, "Usage: %s <input size> <num_threads> [-f <stats to file>] [<seed>] \n", argv[0]);
 			exit(1);
 	}
 	
@@ -78,10 +78,28 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "Please limit the number of threads used to %d\n", THREAD_MAX);
 		exit(1);
 	}
-	
-	// Get the randomized seed
-	if (argc == 4)
-		seed = atoi(argv[2]);
+
+	int print_file = FALSE;
+	// check the rest of the arguments
+	if (argc > 3)
+	{
+		// Get the randomized seed or the -f flag
+		if (argc >= 4) {
+			if (strmp(argv[3], "-f"))
+			{
+				print_file = TRUE;
+			} else 
+			{
+				seed = atoi(argv[3]);
+			}
+		}
+
+		if (argc == 5)
+		{
+			seed = atoi(argv[4]);
+		}
+		
+	}
 		
 	int *A = (int *) malloc(sizeof(int) * (n+1)); // n+1 since we are using A[1]..A[n]
 		
@@ -110,13 +128,19 @@ int main(int argc, char **argv) {
 		exit(EXIT_FAILURE);
 	}
 
-	// Writing to file (no flag yet)
-	FILE *fp;
+	// Writing to file, not the best method at the moment
+	if (print_file)
+	{
+		FILE *fp;
+		char filename[1024];
+		snprintf(filename, sizeof(filename), "sortStats_%dt.csv", threads);
 
-   	fp = fopen("test_5t.csv", "w+");
-   	fprintf(fp, "%d, %d, %4.2lf\n", threads, n, sorting_time/1000.0);
-   	fputs("Finished writing to csv\n", fp);
-   	fclose(fp);
+		fp = fopen(filename, "a+");
+		fprintf(fp, "%d, %d, %4.2lf\n", threads, n, sorting_time/1000.0);
+		fputs("Finished writing to csv\n", fp);
+		fclose(fp);
+		printf("Finished writing to %s", filename);
+	}	
 
 	exit(EXIT_SUCCESS); 
 } 
