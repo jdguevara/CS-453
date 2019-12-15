@@ -144,7 +144,6 @@ int main(int argc, char **argv) {
 			fprintf(fp, "No. Threads, No. Elements, Time (s)\n");
 		}
 		fprintf(fp, "%d, %d, %4.2lf\n", threads, n, sorting_time/1000.0);
-		fputs("Finished writing to csv\n", fp);
 		fclose(fp);
 		printf("Finished writing to %s\n", filename);
 	}	
