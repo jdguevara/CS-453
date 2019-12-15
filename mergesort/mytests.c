@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
 	{
 		// Get the randomized seed or the -f flag
 		if (argc >= 4) {
-			if (strcmp(argv[3], "-f"))
+			if (strcmp(argv[3], "-f") == 0)
 			{
 				print_file = TRUE;
 			} else 
