@@ -122,7 +122,7 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 	{
 		if (i == numthreads - 1)
 		{
-			merge(A, p, q * i, r;
+			merge(A, p, q * i, r);
 		} else {
 			merge(A, p, q * i, (q*i) + q);
 		}
