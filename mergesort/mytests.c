@@ -1,8 +1,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/times.h> 
 
 
 #define TRUE 1
@@ -17,7 +15,6 @@ void merge(int A[], int p, int q, int r);
 void insertion_sort(int A[], int p, int r);
 void parallel_mergesort(int A[], int p, int r, int numthreads);
 double getMilliSeconds(void);
-float report_cpu_time(void);
 
 
 /*
@@ -94,27 +91,18 @@ int main(int argc, char **argv) {
 	
 	double start_time;
 	double sorting_time;
-	long clock_tick;
-	double cpu_time;
-	double sytem_time;
-
-	clock_tick = sysconf(_SC_CLK_TCK);
 
 	// sort the input (and time it)
 	start_time = getMilliSeconds();
-	cpu_time = report_cpu_time();
 	
 	// Everything will now pass through the parallel sort
 	parallel_mergesort(A, 1, n, threads);
 
 	sorting_time = getMilliSeconds() - start_time;
-
-	cpu_time = report_cpu_time() - cpu_time;
 	
 	// print results if correctly sorted otherwise cry foul and exit
 	if (check_if_sorted(A,n)) {
 		printf("Sorting %d elements took %4.2lf seconds.\n", n,  sorting_time/1000.0);
-		printf("CPU time: %4.2lf seconds. \n", cpu_time);
 	} else { 
 		printf("%s: sorting failed!!!!\n", argv[0]);
 		// I still wanted to be able to see how long failures took to process
