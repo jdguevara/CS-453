@@ -1,8 +1,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/stat.h>
-#include <errno.h>
 
 
 #define TRUE 1
@@ -17,7 +15,7 @@ void merge(int A[], int p, int q, int r);
 void insertion_sort(int A[], int p, int r);
 void parallel_mergesort(int A[], int p, int r, int numthreads);
 double getMilliSeconds(void);
-void create_csv(char *filename, int threads, int elements, double time);
+float report_cpu_time(void);
 
 
 /*
@@ -64,7 +62,7 @@ int check_if_sorted(int A[], int n)
 int main(int argc, char **argv) {
 	
 	if (argc <3) { // there must be at least one command-line argument
-			fprintf(stderr, "Usage: %s <input size> <num_threads> [<seed>] [-f <print file>] \n", argv[0]);
+			fprintf(stderr, "Usage: %s <input size> <num_threads> [<seed>] \n", argv[0]);
 			exit(1);
 	}
 	
@@ -83,15 +81,8 @@ int main(int argc, char **argv) {
 	}
 	
 	// Get the randomized seed
-	int print_file = FALSE;
-	if (argc == 4) {
-		if (argv[3] == "-f") 
-		{
-			print_file = TRUE;
-		} else {
-			seed = atoi(argv[2]);
-		}
-	}
+	if (argc == 4)
+		seed = atoi(argv[2]);
 		
 	int *A = (int *) malloc(sizeof(int) * (n+1)); // n+1 since we are using A[1]..A[n]
 		
@@ -109,7 +100,7 @@ int main(int argc, char **argv) {
 	parallel_mergesort(A, 1, n, threads);
 
 	sorting_time = getMilliSeconds() - start_time;
-	
+
 	// print results if correctly sorted otherwise cry foul and exit
 	if (check_if_sorted(A,n)) {
 		printf("Sorting %d elements took %4.2lf seconds.\n", n,  sorting_time/1000.0);
@@ -120,40 +111,5 @@ int main(int argc, char **argv) {
 		exit(EXIT_FAILURE);
 	}
 
-	if (print_file) 
-	{
-		
-	}
-	
-
 	exit(EXIT_SUCCESS); 
 } 
-
-void create_csv(char *filename, int threads, int elements, double time){
- 
-printf("\n Creating %s.csv file",filename);
- 
-FILE *fp;
- 
-int i,j;
-
-struct stat stat_record;
-
-filename=strcat(filename,".csv");
-
-fp=fopen(filename,"w+");
-     
-if(stat(fp, &stat_record)){
-	printf("%s", strerror(errno));
-} else if(stat_record.st_size <= 1) {
-	fprintf(fp,"Thread Count, Element Count, Time");
-	fprintf(fp, "%d, %d, %d\n", threads, elements, time);
-} else {
-	fprintf(fp, "%d, %d, %d\n", threads, elements, time);
-}
- 
-fclose(fp);
- 
-printf("\n %sfile written",filename);
- 
-}
