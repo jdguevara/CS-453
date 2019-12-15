@@ -110,5 +110,13 @@ int main(int argc, char **argv) {
 		exit(EXIT_FAILURE);
 	}
 
+	// Writing to file (no flag yet)
+	FILE *fp;
+
+   	fp = fopen("test_5t.csv", "w+");
+   	fprintf(fp, "%d, %d, %4.2lf\n", threads, n, sorting_time/1000.0);
+   	fputs("Finished writing to csv\n", fp);
+   	fclose(fp);
+
 	exit(EXIT_SUCCESS); 
 } 
