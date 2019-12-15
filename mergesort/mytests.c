@@ -5,6 +5,7 @@
 
 #define TRUE 1
 #define FALSE 0
+#define THREAD_MAX 8
 
 // function prototypes
 int check_if_sorted(int A[], int n);
@@ -71,9 +72,9 @@ int main(int argc, char **argv) {
 	if (threads <= 0)
 	{
 		threads = 1;
-	} else if (threads > 8)
+	} else if (threads > THREAD_MAX)
 	{
-		fprintf(stderr, "Please limit the number of threads used to 8\n");
+		fprintf(stderr, "Please limit the number of threads used to %d\n", THREAD_MAX);
 		exit(1);
 	}
 	
@@ -105,6 +106,7 @@ int main(int argc, char **argv) {
 		printf("Sorting %d elements took %4.2lf seconds.\n", n,  sorting_time/1000.0);
 	} else { 
 		printf("%s: sorting failed!!!!\n", argv[0]);
+		// I still wanted to be able to see how long failures took to process
 		printf("Processing %d elements took %4.2lf seconds.\n", n,  sorting_time/1000.0);
 		exit(EXIT_FAILURE);
 	}

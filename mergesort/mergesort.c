@@ -93,7 +93,7 @@ void parallel_mergesort(int A[], int p, int r, int numthreads) {
 		serial_mergesort(A, p, r);
 	} else {
 		q = r/numthreads;
-		for (i = 0; i < THREAD_MAX; i++)
+		for (i = 0; i < numthreads; i++)
 		{
 			parallel_args[i].threadA = A;
 			parallel_args[i].threadP = p + q * i;
