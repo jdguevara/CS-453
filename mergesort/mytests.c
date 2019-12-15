@@ -84,13 +84,14 @@ int main(int argc, char **argv) {
 	
 	// Get the randomized seed
 	int print_file = FALSE;
-	if (argc == 4)
+	if (argc == 4) {
 		if (argv[3] == "-f") 
 		{
 			print_file = TRUE;
 		} else {
 			seed = atoi(argv[2]);
 		}
+	}
 		
 	int *A = (int *) malloc(sizeof(int) * (n+1)); // n+1 since we are using A[1]..A[n]
 		
