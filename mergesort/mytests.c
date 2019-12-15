@@ -102,14 +102,14 @@ int main(int argc, char **argv) {
 
 	// sort the input (and time it)
 	start_time = getMilliSeconds();
-	cpu_time = report_cpu_time() * clock_tick;
+	cpu_time = report_cpu_time();
 	
 	// Everything will now pass through the parallel sort
 	parallel_mergesort(A, 1, n, threads);
 
 	sorting_time = getMilliSeconds() - start_time;
 
-	cpu_time = report_cpu_time() * clock_tick - cpu_time;
+	cpu_time = report_cpu_time() - cpu_time;
 	
 	// print results if correctly sorted otherwise cry foul and exit
 	if (check_if_sorted(A,n)) {
